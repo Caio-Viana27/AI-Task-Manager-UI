@@ -1,9 +1,8 @@
+import { RouterProvider } from 'react-router'
+import { router } from './routes/router.tsx'
+
 function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold text-blue-600">Planned AI Task Manager</h1>
-    </>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default App

@@ -1,0 +1,46 @@
+{
+  "app": {
+    "name": "Planned"
+  },
+  "nav": {
+    "label": "Principal",
+    "dashboard": "Tarefas",
+    "newTask": "Nova tarefa",
+    "login": "Entrar",
+    "signup": "Criar conta"
+  },
+  "language": {
+    "label": "Idioma",
+    "en": "EN",
+    "ptBR": "PT-BR"
+  },
+  "placeholder": "Esta página é provisória. Ela chega em uma próxima etapa.",
+  "pages": {
+    "login": {
+      "title": "Entrar",
+      "forgotPassword": "Esqueceu sua senha?"
+    },
+    "signup": {
+      "title": "Criar conta"
+    },
+    "forgotPassword": {
+      "title": "Esqueci minha senha"
+    },
+    "resetPassword": {
+      "title": "Redefinir senha"
+    },
+    "dashboard": {
+      "title": "Suas tarefas"
+    },
+    "newTask": {
+      "title": "Nova tarefa"
+    },
+    "taskDetail": {
+      "title": "Tarefa {{id}}"
+    },
+    "notFound": {
+      "title": "Página não encontrada",
+      "backHome": "Voltar para suas tarefas"
+    }
+  }
+}

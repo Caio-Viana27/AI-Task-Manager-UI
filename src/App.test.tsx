@@ -3,9 +3,9 @@ import { describe, expect, it } from 'vitest'
 import App from './App.tsx'
 
 describe('App', () => {
-  it('renders the app title', () => {
+  it('renders the dashboard at the root URL', async () => {
     render(<App />)
 
-    expect(screen.getByRole('heading', { name: 'Planned AI Task Manager' })).toBeDefined()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Your tasks' })).toBeDefined()
   })
 })

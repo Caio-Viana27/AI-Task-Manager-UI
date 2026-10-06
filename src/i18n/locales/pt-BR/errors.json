@@ -1,0 +1,18 @@
+{
+  "VALIDATION_ERROR": "Alguns campos são inválidos. Verifique e tente novamente.",
+  "INVALID_STATUS": "Esse status não é válido.",
+  "INVALID_PRIORITY": "Essa prioridade não é válida.",
+  "INVALID_COMPLEXITY": "Essa complexidade não é válida.",
+  "SUBTASK_DEPTH_EXCEEDED": "Uma subtarefa não pode ter subtarefas próprias.",
+  "UNAUTHORIZED": "Sua sessão expirou. Entre novamente.",
+  "BAD_CREDENTIALS": "E-mail ou senha incorretos.",
+  "TASK_NOT_FOUND": "Esta tarefa não existe.",
+  "EMAIL_ALREADY_USED": "Já existe uma conta com este e-mail.",
+  "AI_INVALID_RESPONSE": "A IA retornou uma resposta que não conseguimos usar. Tente novamente.",
+  "AI_RATE_LIMITED": "Você atingiu o limite de uso da IA por hora. Tente novamente mais tarde.",
+  "AI_UNAVAILABLE": "O assistente de IA está indisponível no momento. Tente novamente em instantes.",
+  "METHOD_NOT_ALLOWED": "Esta ação não é suportada.",
+  "UNSUPPORTED_MEDIA_TYPE": "O formato da requisição não é suportado.",
+  "INTERNAL_ERROR": "Algo deu errado do nosso lado. Tente novamente.",
+  "generic": "Algo deu errado. Verifique sua conexão e tente novamente."
+}

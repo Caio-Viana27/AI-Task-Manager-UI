@@ -1,0 +1,18 @@
+{
+  "VALIDATION_ERROR": "Some fields are invalid. Check them and try again.",
+  "INVALID_STATUS": "That status isn't valid.",
+  "INVALID_PRIORITY": "That priority isn't valid.",
+  "INVALID_COMPLEXITY": "That complexity isn't valid.",
+  "SUBTASK_DEPTH_EXCEEDED": "A subtask can't have subtasks of its own.",
+  "UNAUTHORIZED": "Your session has expired. Log in again.",
+  "BAD_CREDENTIALS": "Wrong email or password.",
+  "TASK_NOT_FOUND": "This task doesn't exist.",
+  "EMAIL_ALREADY_USED": "An account with this email already exists.",
+  "AI_INVALID_RESPONSE": "The AI returned a response we couldn't use. Try again.",
+  "AI_RATE_LIMITED": "You've reached the hourly AI limit. Try again later.",
+  "AI_UNAVAILABLE": "The AI assistant is unavailable right now. Try again in a moment.",
+  "METHOD_NOT_ALLOWED": "This action isn't supported.",
+  "UNSUPPORTED_MEDIA_TYPE": "The request format isn't supported.",
+  "INTERNAL_ERROR": "Something went wrong on our side. Try again.",
+  "generic": "Something went wrong. Check your connection and try again."
+}

@@ -1,0 +1,46 @@
+{
+  "app": {
+    "name": "Planned"
+  },
+  "nav": {
+    "label": "Main",
+    "dashboard": "Tasks",
+    "newTask": "New task",
+    "login": "Log in",
+    "signup": "Sign up"
+  },
+  "language": {
+    "label": "Language",
+    "en": "EN",
+    "ptBR": "PT-BR"
+  },
+  "placeholder": "This page is a placeholder. It arrives in a later wave.",
+  "pages": {
+    "login": {
+      "title": "Log in",
+      "forgotPassword": "Forgot your password?"
+    },
+    "signup": {
+      "title": "Sign up"
+    },
+    "forgotPassword": {
+      "title": "Forgot password"
+    },
+    "resetPassword": {
+      "title": "Reset password"
+    },
+    "dashboard": {
+      "title": "Your tasks"
+    },
+    "newTask": {
+      "title": "New task"
+    },
+    "taskDetail": {
+      "title": "Task {{id}}"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "backHome": "Back to your tasks"
+    }
+  }
+}
