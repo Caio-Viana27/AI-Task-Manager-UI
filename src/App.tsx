@@ -1,8 +1,7 @@
-
 function App() {
   return (
     <>
-      <h1>Planned AI Task Manager</h1>
+      <h1 className="text-3xl font-bold text-blue-600">Planned AI Task Manager</h1>
     </>
   )
 }
