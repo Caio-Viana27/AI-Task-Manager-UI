@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { useNavigate } from 'react-router'
 import { getMe, type AuthResponse } from '../api/auth.ts'
 import { ApiError, setUnauthorizedHandler } from '../api/client.ts'
-import { AuthContext, type AuthContextValue, type AuthStatus } from './AuthContext.ts'
+import { AuthContext, loginPath, type AuthContextValue, type AuthStatus } from './AuthContext.ts'
 import { clearToken, getToken, setToken, TOKEN_KEY } from './tokenStorage.ts'
 
 const ME_QUERY_KEY = ['me'] as const
@@ -25,24 +25,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
   // several 401s (or a 401 arriving after logout) redirect only once.
   const tokenRef = useRef(token)
   const sessionEndedRef = useRef(false)
+  const [expired, setExpired] = useState(false)
 
   const startSession = useCallback((next: string) => {
     tokenRef.current = next
     sessionEndedRef.current = false
+    setExpired(false)
     setTokenState(next)
   }, [])
 
   const endSession = useCallback(
-    (to: string) => {
+    (reason: 'logout' | 'expired') => {
       if (sessionEndedRef.current) {
         return
       }
       sessionEndedRef.current = true
       tokenRef.current = null
       clearToken()
+      setExpired(reason === 'expired')
       setTokenState(null)
       // Navigate before clearing, so the protected page's queries don't refetch without a token.
-      void navigate(to, { replace: true })
+      void navigate(loginPath(reason === 'expired'), { replace: true })
       queryClient.clear()
     },
     [navigate, queryClient],
@@ -65,7 +68,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     [queryClient, startSession],
   )
 
-  const logout = useCallback(() => endSession('/login'), [endSession])
+  const logout = useCallback(() => endSession('logout'), [endSession])
 
   const { refetch } = meQuery
   const retry = useCallback(() => {
@@ -73,7 +76,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [refetch])
 
   useEffect(() => {
-    setUnauthorizedHandler(() => endSession('/login?expired=1'))
+    setUnauthorizedHandler(() => endSession('expired'))
     return () => setUnauthorizedHandler(null)
   }, [endSession])
 
@@ -89,7 +92,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         return
       }
       if (next === null) {
-        endSession('/login')
+        endSession('logout')
       } else {
         startSession(next)
         // Another user may have logged in: drop the old user's data and refetch.
@@ -104,8 +107,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const user = status === 'authenticated' ? (meQuery.data ?? null) : null
 
   const value = useMemo<AuthContextValue>(
-    () => ({ status, user, login, logout, retry }),
-    [status, user, login, logout, retry],
+    () => ({ status, user, expired, login, logout, retry }),
+    [status, user, expired, login, logout, retry],
   )
 
   return <AuthContext value={value}>{children}</AuthContext>

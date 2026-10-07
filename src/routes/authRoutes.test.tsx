@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
+import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { getToken } from '../auth/tokenStorage.ts'
@@ -67,12 +67,13 @@ describe('redirectTarget', () => {
 
 describe('AppLayout header', () => {
   it('shows "Log in" and "Sign up" when logged out', async () => {
-    renderRoute('/login')
+    renderRoute('/forgot-password')
 
-    expect(await screen.findByRole('link', { name: 'Sign up' })).toBeDefined()
-    expect(screen.getByRole('link', { name: 'Log in' })).toBeDefined()
+    const nav = within(await screen.findByRole('navigation'))
+    expect(nav.getByRole('link', { name: 'Sign up' })).toBeDefined()
+    expect(nav.getByRole('link', { name: 'Log in' })).toBeDefined()
+    expect(nav.queryByRole('link', { name: 'New task' })).toBeNull()
     expect(screen.queryByRole('button', { name: 'Log out' })).toBeNull()
-    expect(screen.queryByRole('link', { name: 'New task' })).toBeNull()
   })
 
   it('shows the user, the task links and "Log out" when logged in; logging out ends on /login', async () => {
@@ -83,7 +84,7 @@ describe('AppLayout header', () => {
     expect(await screen.findByText('Ana Souza')).toBeDefined()
     expect(screen.getByRole('link', { name: 'Tasks' })).toBeDefined()
     expect(screen.getByRole('link', { name: 'New task' })).toBeDefined()
-    expect(screen.queryByRole('link', { name: 'Log in' })).toBeNull()
+    expect(within(screen.getByRole('navigation')).queryByRole('link', { name: 'Log in' })).toBeNull()
 
     await user.click(screen.getByRole('button', { name: 'Log out' }))
 

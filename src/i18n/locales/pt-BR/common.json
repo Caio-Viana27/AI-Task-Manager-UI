@@ -21,13 +21,6 @@
   },
   "placeholder": "Esta página é provisória. Ela chega em uma próxima etapa.",
   "pages": {
-    "login": {
-      "title": "Entrar",
-      "forgotPassword": "Esqueceu sua senha?"
-    },
-    "signup": {
-      "title": "Criar conta"
-    },
     "forgotPassword": {
       "title": "Esqueci minha senha"
     },

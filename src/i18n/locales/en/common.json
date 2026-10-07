@@ -21,13 +21,6 @@
   },
   "placeholder": "This page is a placeholder. It arrives in a later wave.",
   "pages": {
-    "login": {
-      "title": "Log in",
-      "forgotPassword": "Forgot your password?"
-    },
-    "signup": {
-      "title": "Sign up"
-    },
     "forgotPassword": {
       "title": "Forgot password"
     },

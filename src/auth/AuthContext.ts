@@ -13,12 +13,22 @@ export interface AuthContextValue {
   status: AuthStatus
   /** The current user, set only when `status` is `authenticated`. */
   user: AuthUser | null
+  /**
+   * True when the last session ended because the API rejected the token (a 401), so a
+   * redirect to /login shows the "session expired" banner.
+   */
+  expired: boolean
   /** Stores the token and seeds the current user from a sign-up or sign-in response. */
   login: (response: AuthResponse) => void
   /** Clears the token, goes to /login, then clears the query cache. No API call. */
   logout: () => void
   /** Refetches the current user after an `error`. */
   retry: () => void
+}
+
+/** The login page, with the "session expired" banner when `expired`. */
+export function loginPath(expired: boolean): string {
+  return expired ? '/login?expired=1' : '/login'
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null)
