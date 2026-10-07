@@ -1,4 +1,5 @@
-import { createBrowserRouter, type RouteObject } from 'react-router'
+import { createBrowserRouter, Outlet, type RouteObject } from 'react-router'
+import { AuthProvider } from '../auth/AuthProvider.tsx'
 import { AppLayout } from '../layouts/AppLayout.tsx'
 import { DashboardPage } from '../pages/DashboardPage.tsx'
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage.tsx'
@@ -13,25 +14,35 @@ import { ProtectedRoute } from './ProtectedRoute.tsx'
 /** Every route from PLAN §6. Exported separately so tests can mount them in a memory router. */
 export const routes: RouteObject[] = [
   {
-    element: <AppLayout />,
-    children: [
-      { path: '/login', element: <LoginPage /> },
-      { path: '/signup', element: <SignupPage /> },
-      { path: '/forgot-password', element: <ForgotPasswordPage /> },
-      { path: '/reset-password', element: <ResetPasswordPage /> },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-  {
+    // Root auth route: the session provider needs the router to navigate on logout.
     element: (
-      <ProtectedRoute>
-        <AppLayout />
-      </ProtectedRoute>
+      <AuthProvider>
+        <Outlet />
+      </AuthProvider>
     ),
     children: [
-      { path: '/', element: <DashboardPage /> },
-      { path: '/tasks/new', element: <NewTaskPage /> },
-      { path: '/tasks/:id', element: <TaskDetailPage /> },
+      {
+        element: <AppLayout />,
+        children: [
+          { path: '/login', element: <LoginPage /> },
+          { path: '/signup', element: <SignupPage /> },
+          { path: '/forgot-password', element: <ForgotPasswordPage /> },
+          { path: '/reset-password', element: <ResetPasswordPage /> },
+          { path: '*', element: <NotFoundPage /> },
+        ],
+      },
+      {
+        element: (
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        ),
+        children: [
+          { path: '/', element: <DashboardPage /> },
+          { path: '/tasks/new', element: <NewTaskPage /> },
+          { path: '/tasks/:id', element: <TaskDetailPage /> },
+        ],
+      },
     ],
   },
 ]
