@@ -1,0 +1,20 @@
+{
+  "suggest": {
+    "label": "AI suggestions",
+    "button": "Suggest with AI",
+    "loading": "Asking the AI…",
+    "hint": "Fill in the title and description to get a suggestion.",
+    "reviewTitle": "AI suggestion",
+    "current": "Current",
+    "suggested": "Suggested",
+    "useTitle": "Use the suggested title",
+    "useDescription": "Use the suggested description",
+    "usePriority": "Use the suggested priority",
+    "useComplexity": "Use the suggested complexity",
+    "reasoning": "Why",
+    "empty": "(empty)",
+    "acceptAll": "Accept all",
+    "acceptSelected": "Accept selected",
+    "dismiss": "Dismiss"
+  }
+}

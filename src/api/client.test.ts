@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { clearToken, setToken } from '../auth/tokenStorage.ts'
+import i18n from '../i18n/index.ts'
 import { ApiError, apiRequest, setUnauthorizedHandler } from './client.ts'
 
 const fetchMock = vi.fn<typeof fetch>()
@@ -48,6 +49,17 @@ describe('apiRequest', () => {
     fetchMock.mockResolvedValue(new Response(null, { status: 204 }))
 
     await expect(apiRequest('/tasks/1', { method: 'DELETE' })).resolves.toBeUndefined()
+  })
+
+  it('sends the UI language as Accept-Language and follows a language switch', async () => {
+    fetchMock.mockImplementation(async () => jsonResponse([]))
+
+    await apiRequest('/tasks')
+    await i18n.changeLanguage('pt-BR')
+    await apiRequest('/tasks')
+
+    const languages = fetchMock.mock.calls.map(([, init]) => new Headers(init?.headers).get('Accept-Language'))
+    expect(languages).toEqual(['en', 'pt-BR'])
   })
 
   it('adds the Authorization header when a token exists', async () => {

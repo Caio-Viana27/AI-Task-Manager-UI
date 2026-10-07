@@ -1,4 +1,5 @@
 import { getToken } from '../auth/tokenStorage.ts'
+import i18n from '../i18n/index.ts'
 
 /** One entry of the `errors` list in a validation ProblemDetail (PLAN §2, Errors). */
 export interface FieldError {
@@ -47,7 +48,8 @@ export interface RequestOptions {
 export async function apiRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const { method = 'GET', body, signal } = options
 
-  const headers = new Headers({ Accept: 'application/json' })
+  // The UI's language, not the browser's: AI text comes back in it (wave 3, D5).
+  const headers = new Headers({ Accept: 'application/json', 'Accept-Language': i18n.resolvedLanguage ?? i18n.language ?? 'en' })
   if (body !== undefined) {
     headers.set('Content-Type', 'application/json')
   }

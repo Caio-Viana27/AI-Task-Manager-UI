@@ -1,0 +1,20 @@
+{
+  "suggest": {
+    "label": "Sugestões da IA",
+    "button": "Sugerir com IA",
+    "loading": "Consultando a IA…",
+    "hint": "Preencha o título e a descrição para receber uma sugestão.",
+    "reviewTitle": "Sugestão da IA",
+    "current": "Atual",
+    "suggested": "Sugerido",
+    "useTitle": "Usar o título sugerido",
+    "useDescription": "Usar a descrição sugerida",
+    "usePriority": "Usar a prioridade sugerida",
+    "useComplexity": "Usar a complexidade sugerida",
+    "reasoning": "Por quê",
+    "empty": "(vazio)",
+    "acceptAll": "Aceitar tudo",
+    "acceptSelected": "Aceitar selecionados",
+    "dismiss": "Descartar"
+  }
+}

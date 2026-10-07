@@ -1,4 +1,8 @@
-import type { TaskFormValues } from '../tasks/form/taskForm.ts'
+import { useTranslation } from 'react-i18next'
+import { useSuggestTask } from '../../api/ai.ts'
+import { ErrorMessage } from '../../components/ErrorMessage.tsx'
+import { DESCRIPTION_MAX_LENGTH, TITLE_MAX_LENGTH, type TaskFormValues } from '../tasks/form/taskForm.ts'
+import { SuggestReview } from './suggest/SuggestReview.tsx'
 
 /** The form fields the "Suggest with AI" flow reads and may fill (PLAN §5). */
 export type AiSuggestFields = Pick<TaskFormValues, 'title' | 'description' | 'priority' | 'complexity'>
@@ -18,10 +22,46 @@ export interface AiSuggestSlotProps {
 }
 
 /**
- * Placeholder for Wave 3 (T3.4, "Suggest with AI"). Rendered by `TaskForm` next to its fields.
- * Renders nothing until then.
+ * "Suggest with AI" (PLAN §5 Suggest, wave 3 T3.4). Rendered by `TaskForm` above its fields.
+ * Drafts and saved tasks work the same way: accepting fills the form, and the user saves it (D7).
+ * A failed request shows its message and leaves the form untouched.
  */
-export function AiSuggestSlot(props: AiSuggestSlotProps) {
-  void props
-  return null
+export function AiSuggestSlot({ values, onApply, disabled }: AiSuggestSlotProps) {
+  const { t } = useTranslation('ai')
+  const suggest = useSuggestTask()
+  const title = values.title.trim()
+  const description = values.description.trim()
+  const inputValid =
+    title !== '' && title.length <= TITLE_MAX_LENGTH && description !== '' && description.length <= DESCRIPTION_MAX_LENGTH
+
+  return (
+    <section aria-label={t('suggest.label')} className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() => suggest.mutate({ title, description })}
+          disabled={!inputValid || disabled || suggest.isPending}
+          className="rounded-md border border-violet-300 px-3 py-1.5 text-sm font-medium text-violet-800 hover:bg-violet-50 disabled:opacity-60"
+        >
+          {suggest.isPending ? t('suggest.loading') : t('suggest.button')}
+        </button>
+        {!inputValid && <span className="text-xs text-slate-500">{t('suggest.hint')}</span>}
+      </div>
+      {suggest.isError && <ErrorMessage error={suggest.error} />}
+      {suggest.isSuccess && (
+        <SuggestReview
+          // A new suggestion starts with every field checked again.
+          key={suggest.submittedAt}
+          current={values}
+          suggestion={suggest.data}
+          disabled={disabled}
+          onAccept={(changes) => {
+            onApply(changes)
+            suggest.reset()
+          }}
+          onDismiss={() => suggest.reset()}
+        />
+      )}
+    </section>
+  )
 }
