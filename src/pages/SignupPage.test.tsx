@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { getToken } from '../auth/tokenStorage.ts'
 import i18n from '../i18n/index.ts'
-import { jsonResponse, problemResponse, stubFetch } from '../test/fetchMock.ts'
+import { dashboardResponse, jsonResponse, problemResponse, stubFetch } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
 
 const AUTH_RESPONSE = {
@@ -37,7 +37,7 @@ function fieldError(label: string): string | null {
 
 describe('SignupPage', () => {
   it('signs up, stores the token and navigates to /', async () => {
-    const fetchMock = stubFetch(() => jsonResponse(AUTH_RESPONSE, 201))
+    const fetchMock = stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(AUTH_RESPONSE, 201))
     const { router } = renderRoute('/signup')
 
     await fillAndSubmit({ email: ' ana@example.com  ' })

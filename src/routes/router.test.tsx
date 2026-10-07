@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { jsonResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
+import { dashboardResponse, jsonResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
 
 describe('routes', () => {
@@ -21,7 +21,7 @@ describe('routes', () => {
     ['/tasks/new', 'New task'],
     ['/tasks/42', 'Task 42'],
   ])('%s renders its page with a session', async (path, heading) => {
-    stubFetch(() => jsonResponse(TEST_USER_RESPONSE))
+    stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
     renderRoute(path, { token: 'stored-token' })
 
     expect(await screen.findByRole('heading', { level: 1, name: heading })).toBeDefined()

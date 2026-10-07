@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
-import { jsonResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
+import { dashboardResponse, jsonResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
 
 describe('LanguageSwitcher', () => {
   it('switches the visible text between EN and PT-BR', async () => {
     const user = userEvent.setup()
-    stubFetch(() => jsonResponse(TEST_USER_RESPONSE))
+    stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
     renderRoute('/', { token: 'stored-token' })
     expect(await screen.findByRole('heading', { level: 1, name: 'Your tasks' })).toBeDefined()
 

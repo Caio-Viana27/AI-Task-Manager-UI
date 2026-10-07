@@ -2,7 +2,7 @@ import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { getToken } from '../auth/tokenStorage.ts'
-import { jsonResponse, problemResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
+import { dashboardResponse, jsonResponse, problemResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
 import { redirectTarget } from './redirectTarget.ts'
 
@@ -27,7 +27,9 @@ describe('ProtectedRoute', () => {
   it('shows the generic error with "Try again" when /users/me fails, and recovers', async () => {
     const user = userEvent.setup()
     let fail = true
-    stubFetch(() => (fail ? problemResponse(503, 'INTERNAL_ERROR') : jsonResponse(TEST_USER_RESPONSE)))
+    stubFetch(({ path }) =>
+      fail ? problemResponse(503, 'INTERNAL_ERROR') : (dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE)),
+    )
     renderRoute('/', { token: 'stored-token' })
 
     expect((await screen.findByRole('alert')).textContent).toBe(
@@ -44,7 +46,7 @@ describe('ProtectedRoute', () => {
 
 describe('GuestRoute', () => {
   it.each(['/login', '/signup'])('%s redirects to / with a valid session', async (path) => {
-    stubFetch(() => jsonResponse(TEST_USER_RESPONSE))
+    stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
 
     const { router } = renderRoute(path, { token: 'stored-token' })
 
@@ -78,7 +80,7 @@ describe('AppLayout header', () => {
 
   it('shows the user, the task links and "Log out" when logged in; logging out ends on /login', async () => {
     const user = userEvent.setup()
-    stubFetch(() => jsonResponse(TEST_USER_RESPONSE))
+    stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
     const { router } = renderRoute('/', { token: 'stored-token' })
 
     expect(await screen.findByText('Ana Souza')).toBeDefined()

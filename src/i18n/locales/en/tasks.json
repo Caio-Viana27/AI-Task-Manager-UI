@@ -23,5 +23,50 @@
     "MEDIUM": "Medium",
     "HARD": "Hard",
     "none": "Not estimated"
+  },
+  "list": {
+    "newTask": "Add a task",
+    "loading": "Loading tasks…",
+    "retry": "Try again",
+    "count_one": "{{count}} task",
+    "count_other": "{{count}} tasks",
+    "noDueDate": "No due date",
+    "subtask": "Subtask",
+    "markDone": "Mark “{{title}}” as done",
+    "markNotDone": "Mark “{{title}}” as not done",
+    "empty": {
+      "title": "You have no tasks yet",
+      "body": "Add your first task to get started.",
+      "filteredTitle": "No tasks match these filters",
+      "filteredBody": "Try changing or clearing the filters.",
+      "pageTitle": "There are no tasks on this page",
+      "firstPage": "Go to the first page"
+    },
+    "filters": {
+      "label": "Filters",
+      "search": "Search",
+      "searchPlaceholder": "Title or description",
+      "dueFrom": "Due from",
+      "dueTo": "Due to",
+      "includeSubtasks": "Include subtasks",
+      "clear": "Clear filters"
+    },
+    "sort": {
+      "label": "Sort by",
+      "dueDate_asc": "Due date, earliest first",
+      "dueDate_desc": "Due date, latest first",
+      "priority_asc": "Priority, low to high",
+      "priority_desc": "Priority, high to low",
+      "createdAt_asc": "Oldest first",
+      "createdAt_desc": "Newest first",
+      "title_asc": "Title, A to Z",
+      "title_desc": "Title, Z to A"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{page}} of {{totalPages}}"
+    }
   }
 }

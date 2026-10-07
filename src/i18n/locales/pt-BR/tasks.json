@@ -23,5 +23,50 @@
     "MEDIUM": "Média",
     "HARD": "Difícil",
     "none": "Não estimada"
+  },
+  "list": {
+    "newTask": "Adicionar tarefa",
+    "loading": "Carregando tarefas…",
+    "retry": "Tentar novamente",
+    "count_one": "{{count}} tarefa",
+    "count_other": "{{count}} tarefas",
+    "noDueDate": "Sem data de entrega",
+    "subtask": "Subtarefa",
+    "markDone": "Marcar “{{title}}” como concluída",
+    "markNotDone": "Marcar “{{title}}” como não concluída",
+    "empty": {
+      "title": "Você ainda não tem tarefas",
+      "body": "Adicione sua primeira tarefa para começar.",
+      "filteredTitle": "Nenhuma tarefa corresponde a estes filtros",
+      "filteredBody": "Tente alterar ou limpar os filtros.",
+      "pageTitle": "Não há tarefas nesta página",
+      "firstPage": "Ir para a primeira página"
+    },
+    "filters": {
+      "label": "Filtros",
+      "search": "Buscar",
+      "searchPlaceholder": "Título ou descrição",
+      "dueFrom": "Entrega a partir de",
+      "dueTo": "Entrega até",
+      "includeSubtasks": "Incluir subtarefas",
+      "clear": "Limpar filtros"
+    },
+    "sort": {
+      "label": "Ordenar por",
+      "dueDate_asc": "Data de entrega, mais próxima primeiro",
+      "dueDate_desc": "Data de entrega, mais distante primeiro",
+      "priority_asc": "Prioridade, da menor para a maior",
+      "priority_desc": "Prioridade, da maior para a menor",
+      "createdAt_asc": "Mais antigas primeiro",
+      "createdAt_desc": "Mais recentes primeiro",
+      "title_asc": "Título, de A a Z",
+      "title_desc": "Título, de Z a A"
+    },
+    "pagination": {
+      "label": "Paginação",
+      "previous": "Anterior",
+      "next": "Próxima",
+      "page": "Página {{page}} de {{totalPages}}"
+    }
   }
 }
