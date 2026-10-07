@@ -5,6 +5,7 @@ import { getToken } from '../auth/tokenStorage.ts'
 import i18n from '../i18n/index.ts'
 import { dashboardResponse, jsonResponse, problemResponse, stubFetch } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
+import { taskDetail } from '../features/tasks/detail/testFixtures.ts'
 
 const AUTH_RESPONSE = {
   token: 'new-token',
@@ -39,7 +40,8 @@ describe('LoginPage', () => {
   })
 
   it('returns to the originally requested page after a redirect', async () => {
-    stubFetch(() => jsonResponse(AUTH_RESPONSE))
+    // The detail page loads task 42 after the redirect; every other request gets the auth body.
+    stubFetch(({ path }) => (path === '/v1/tasks/42' ? jsonResponse(taskDetail('42')) : jsonResponse(AUTH_RESPONSE)))
     const { router } = renderRoute('/tasks/42')
     expect(await screen.findByRole('heading', { level: 1, name: 'Log in' })).toBeDefined()
 
