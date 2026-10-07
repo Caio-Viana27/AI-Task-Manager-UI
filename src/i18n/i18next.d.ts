@@ -2,6 +2,7 @@ import 'i18next'
 import type auth from './locales/en/auth.json'
 import type common from './locales/en/common.json'
 import type errors from './locales/en/errors.json'
+import type tasks from './locales/en/tasks.json'
 
 // Type-checks translation keys against the English locale.
 declare module 'i18next' {
@@ -11,6 +12,7 @@ declare module 'i18next' {
       common: typeof common
       errors: typeof errors
       auth: typeof auth
+      tasks: typeof tasks
     }
   }
 }

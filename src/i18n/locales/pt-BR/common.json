@@ -40,5 +40,9 @@
       "title": "Página não encontrada",
       "backHome": "Voltar para suas tarefas"
     }
+  },
+  "dialog": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
   }
 }

@@ -3,7 +3,7 @@
   "INVALID_STATUS": "That status isn't valid.",
   "INVALID_PRIORITY": "That priority isn't valid.",
   "INVALID_COMPLEXITY": "That complexity isn't valid.",
-  "SUBTASK_DEPTH_EXCEEDED": "A subtask can't have subtasks of its own.",
+  "SUBTASK_DEPTH_EXCEEDED": "This task is at the maximum depth, so it can't get more subtasks.",
   "UNAUTHORIZED": "Your session has expired. Log in again.",
   "BAD_CREDENTIALS": "Wrong email or password.",
   "TASK_NOT_FOUND": "This task doesn't exist.",

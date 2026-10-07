@@ -1,0 +1,27 @@
+{
+  "fields": {
+    "title": "Título",
+    "description": "Descrição",
+    "dueDate": "Data de entrega",
+    "priority": "Prioridade",
+    "status": "Status",
+    "complexity": "Complexidade"
+  },
+  "priority": {
+    "LOW": "Baixa",
+    "MEDIUM": "Média",
+    "HIGH": "Alta"
+  },
+  "status": {
+    "TODO": "A fazer",
+    "IN_PROGRESS": "Em andamento",
+    "OVERDUE": "Atrasada",
+    "DONE": "Concluída"
+  },
+  "complexity": {
+    "EASY": "Fácil",
+    "MEDIUM": "Média",
+    "HARD": "Difícil",
+    "none": "Não estimada"
+  }
+}

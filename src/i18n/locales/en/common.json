@@ -40,5 +40,9 @@
       "title": "Page not found",
       "backHome": "Back to your tasks"
     }
+  },
+  "dialog": {
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 }
