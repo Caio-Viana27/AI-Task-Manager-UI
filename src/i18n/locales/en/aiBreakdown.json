@@ -1,0 +1,17 @@
+{
+  "button": "Break down with AI",
+  "loading": "Asking the AI…",
+  "reviewTitle": "Suggested subtasks",
+  "noDrafts": "No drafts left. Discard, or ask the AI again.",
+  "draftLabel": "Draft {{number}}",
+  "up": "Up",
+  "down": "Down",
+  "removeShort": "Remove",
+  "moveUp": "Move draft {{number}} up",
+  "moveDown": "Move draft {{number}} down",
+  "remove": "Remove draft {{number}}",
+  "discard": "Discard",
+  "create_one": "Create {{count}} subtask",
+  "create_other": "Create {{count}} subtasks",
+  "creating": "Creating…"
+}

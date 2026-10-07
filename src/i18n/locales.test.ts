@@ -30,7 +30,7 @@ const API_ERROR_CODES = [
 ]
 
 describe('locales', () => {
-  it.each(['common', 'errors', 'auth', 'tasks', 'ai'] as const)('%s has the same keys in EN and PT-BR', (ns) => {
+  it.each(['common', 'errors', 'auth', 'tasks', 'ai', 'aiBreakdown'] as const)('%s has the same keys in EN and PT-BR', (ns) => {
     expect(keysOf(resources['pt-BR'][ns])).toEqual(keysOf(resources.en[ns]))
   })
 
@@ -39,7 +39,7 @@ describe('locales', () => {
   })
 
   it.each(['en', 'pt-BR'] as const)('%s has no empty messages', (lng) => {
-    const values = [resources[lng].common, resources[lng].errors, resources[lng].auth, resources[lng].tasks, resources[lng].ai].flatMap((ns) =>
+    const values = [resources[lng].common, resources[lng].errors, resources[lng].auth, resources[lng].tasks, resources[lng].ai, resources[lng].aiBreakdown].flatMap((ns) =>
       keysOf(ns).map((key) => key.split('.').reduce<unknown>((node, part) => (node as Record<string, unknown>)[part], ns)),
     )
     expect(values.every((value) => typeof value === 'string' && value.trim() !== '')).toBe(true)

@@ -1,5 +1,6 @@
 import 'i18next'
 import type ai from './locales/en/ai.json'
+import type aiBreakdown from './locales/en/aiBreakdown.json'
 import type auth from './locales/en/auth.json'
 import type common from './locales/en/common.json'
 import type errors from './locales/en/errors.json'
@@ -15,6 +16,7 @@ declare module 'i18next' {
       auth: typeof auth
       tasks: typeof tasks
       ai: typeof ai
+      aiBreakdown: typeof aiBreakdown
     }
   }
 }

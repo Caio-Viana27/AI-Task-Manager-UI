@@ -1,0 +1,17 @@
+{
+  "button": "Dividir com IA",
+  "loading": "Consultando a IA…",
+  "reviewTitle": "Subtarefas sugeridas",
+  "noDrafts": "Não restou nenhum rascunho. Descarte ou peça à IA novamente.",
+  "draftLabel": "Rascunho {{number}}",
+  "up": "Subir",
+  "down": "Descer",
+  "removeShort": "Remover",
+  "moveUp": "Mover o rascunho {{number}} para cima",
+  "moveDown": "Mover o rascunho {{number}} para baixo",
+  "remove": "Remover o rascunho {{number}}",
+  "discard": "Descartar",
+  "create_one": "Criar {{count}} subtarefa",
+  "create_other": "Criar {{count}} subtarefas",
+  "creating": "Criando…"
+}
