@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query'
 import { patchTask, type PageResponse, type Task, type TaskStatus } from '../../../api/tasks.ts'
-import { invalidateTaskWrite, taskKeys } from '../../../api/queries/tasks.ts'
+import { invalidateTaskUpdate, invalidateTaskWrite, taskKeys } from '../../../api/queries/tasks.ts'
 
 export interface ToggleTaskDoneVariables {
   task: Task
@@ -20,7 +20,8 @@ function updateTaskInLists(queryClient: QueryClient, id: string, change: (task: 
 /**
  * The list's quick done/undone toggle: `PATCH { status }` with an optimistic update. On error
  * only this task's status is rolled back, so concurrent toggles of other rows survive. On success
- * the row takes the status from the response, which may be `OVERDUE` (D4).
+ * the row takes the status from the response, which may be `OVERDUE` (D4). Marking a task done
+ * also completes its subtree (D9), so every cached task is then refreshed.
  */
 export function useToggleTaskDone() {
   const queryClient = useQueryClient()
@@ -40,8 +41,10 @@ export function useToggleTaskDone() {
     onSuccess: (updated) => {
       updateTaskInLists(queryClient, updated.id, (cached) => ({ ...cached, ...updated }))
     },
-    onSettled: (_data, _error, { task }) => {
-      void invalidateTaskWrite(queryClient, task.id, task.parentTaskId)
+    onSettled: (updated, _error, { task }) => {
+      void (updated
+        ? invalidateTaskUpdate(queryClient, updated)
+        : invalidateTaskWrite(queryClient, task.id, task.parentTaskId))
     },
   })
 }

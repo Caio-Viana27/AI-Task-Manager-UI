@@ -20,6 +20,8 @@ import {
 export const taskKeys = {
   lists: () => ['tasks'] as const,
   list: (filters: TaskFilters) => ['tasks', filters] as const,
+  /** Prefix of every single-task query. */
+  details: () => ['task'] as const,
   detail: (id: string) => ['task', id] as const,
   lookups: () => ['lookups'] as const,
 }
@@ -65,6 +67,18 @@ export function invalidateTaskWrite(queryClient: QueryClient, id: string, parent
   return Promise.all(keys.map((queryKey) => queryClient.invalidateQueries({ queryKey }))).then(() => undefined)
 }
 
+/**
+ * Marks stale everything an edit that returned `task` may have changed. Marking a task `DONE`
+ * also completes its whole subtree on the server (D9), so every cached task is marked stale too.
+ */
+export function invalidateTaskUpdate(queryClient: QueryClient, task: Task): Promise<void> {
+  if (task.status !== 'DONE') {
+    return invalidateTaskWrite(queryClient, task.id, task.parentTaskId)
+  }
+  const keys = [taskKeys.lists(), taskKeys.details()]
+  return Promise.all(keys.map((queryKey) => queryClient.invalidateQueries({ queryKey }))).then(() => undefined)
+}
+
 export function useCreateTask() {
   const queryClient = useQueryClient()
   return useMutation({
@@ -83,7 +97,7 @@ export function useUpdateTask() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ id, request }: UpdateTaskVariables) => updateTask(id, request),
-    onSuccess: (task: Task) => invalidateTaskWrite(queryClient, task.id, task.parentTaskId),
+    onSuccess: (task: Task) => invalidateTaskUpdate(queryClient, task),
   })
 }
 
@@ -96,7 +110,7 @@ export function usePatchTask() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: ({ id, patch }: PatchTaskVariables) => patchTask(id, patch),
-    onSuccess: (task: Task) => invalidateTaskWrite(queryClient, task.id, task.parentTaskId),
+    onSuccess: (task: Task) => invalidateTaskUpdate(queryClient, task),
   })
 }
 
