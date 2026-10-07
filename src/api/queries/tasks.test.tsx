@@ -14,6 +14,7 @@ import {
   usePatchTask,
   useTask,
   useTasks,
+  useUpdateTask,
 } from './tasks.ts'
 
 const ROOT = 'root-id'
@@ -121,17 +122,45 @@ describe('task mutations', () => {
   })
 
   it('patch invalidates the lists, the task and its parent', async () => {
-    stubFetch(() => jsonResponse({ ...task(CHILD, PARENT), status: 'DONE' }))
+    stubFetch(() => jsonResponse({ ...task(CHILD, PARENT), status: 'IN_PROGRESS' }))
     const { queryClient, wrapper } = setup()
     seed(queryClient)
 
     const { result } = renderHook(() => usePatchTask(), { wrapper })
-    await result.current.mutateAsync({ id: CHILD, patch: { status: 'DONE' } })
+    await result.current.mutateAsync({ id: CHILD, patch: { status: 'IN_PROGRESS' } })
 
     expect(isStale(queryClient, taskKeys.list({}))).toBe(true)
     expect(isStale(queryClient, taskKeys.detail(CHILD))).toBe(true)
     expect(isStale(queryClient, taskKeys.detail(PARENT))).toBe(true)
     expect(isStale(queryClient, taskKeys.detail(ROOT))).toBe(false)
+  })
+
+  it('a patch that returns DONE invalidates every cached task, since the subtree is done too (D9)', async () => {
+    stubFetch(() => jsonResponse({ ...task(ROOT, null), status: 'DONE' }))
+    const { queryClient, wrapper } = setup()
+    seed(queryClient)
+
+    const { result } = renderHook(() => usePatchTask(), { wrapper })
+    await result.current.mutateAsync({ id: ROOT, patch: { status: 'DONE' } })
+
+    expect(isStale(queryClient, taskKeys.list({}))).toBe(true)
+    for (const id of [ROOT, PARENT, CHILD]) {
+      expect(isStale(queryClient, taskKeys.detail(id))).toBe(true)
+    }
+  })
+
+  it('an update that returns DONE invalidates every cached task too', async () => {
+    stubFetch(() => jsonResponse({ ...task(PARENT, ROOT), status: 'DONE' }))
+    const { queryClient, wrapper } = setup()
+    seed(queryClient)
+
+    const { result } = renderHook(() => useUpdateTask(), { wrapper })
+    await result.current.mutateAsync({
+      id: PARENT,
+      request: { title: 't', description: 'd', dueDate: null, priority: 'MEDIUM', status: 'DONE', complexity: null },
+    })
+
+    expect(isStale(queryClient, taskKeys.detail(CHILD))).toBe(true)
   })
 
   it('delete removes the task query and invalidates the lists, the parent and its parent', async () => {
