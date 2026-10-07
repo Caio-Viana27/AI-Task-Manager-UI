@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { getToken } from '../auth/tokenStorage.ts'
 import i18n from '../i18n/index.ts'
-import { jsonResponse, problemResponse, stubFetch } from '../test/fetchMock.ts'
+import { dashboardResponse, jsonResponse, problemResponse, stubFetch } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
 
 const AUTH_RESPONSE = {
@@ -21,7 +21,7 @@ async function fillAndSubmit(email: string, password: string, submit = 'Log in')
 
 describe('LoginPage', () => {
   it('logs in, stores the token and navigates to /', async () => {
-    const fetchMock = stubFetch(() => jsonResponse(AUTH_RESPONSE))
+    const fetchMock = stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(AUTH_RESPONSE))
     const { router } = renderRoute('/login')
 
     await fillAndSubmit('  ana@example.com ', 'secret123')
@@ -34,7 +34,8 @@ describe('LoginPage', () => {
     expect(url).toBe('/api/v1/auth/signin')
     // The email is trimmed before sending (D4); the password is sent as typed.
     expect(JSON.parse(String(init?.body))).toEqual({ email: 'ana@example.com', password: 'secret123' })
-    expect(fetchMock).toHaveBeenCalledOnce()
+    // Sign-in is called once; the rest are the dashboard's own requests.
+    expect(fetchMock.mock.calls.filter(([input]) => String(input) === '/api/v1/auth/signin')).toHaveLength(1)
   })
 
   it('returns to the originally requested page after a redirect', async () => {

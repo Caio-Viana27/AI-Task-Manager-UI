@@ -34,3 +34,28 @@ export const TEST_USER_RESPONSE = {
   email: 'ana@example.com',
   roles: ['USER'],
 }
+
+/** An empty `GET /tasks` page. */
+export const EMPTY_TASK_PAGE = { content: [], page: 0, size: 20, totalElements: 0, totalPages: 0 }
+
+/** The `GET /lookups` body: the seeded names in seed order (D3). */
+export const TEST_LOOKUPS = {
+  priorities: ['LOW', 'MEDIUM', 'HIGH'],
+  statuses: ['TODO', 'IN_PROGRESS', 'OVERDUE', 'DONE'],
+  complexities: ['EASY', 'MEDIUM', 'HARD'],
+}
+
+/**
+ * Answers the dashboard's own requests (`GET /tasks` with an empty page, `GET /lookups`), or
+ * returns `undefined` for any other path. For tests that land on `/` but test something else:
+ * `stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))`.
+ */
+export function dashboardResponse(path: string): Response | undefined {
+  if (path === '/v1/lookups') {
+    return jsonResponse(TEST_LOOKUPS)
+  }
+  if (path === '/v1/tasks' || path.startsWith('/v1/tasks?')) {
+    return jsonResponse(EMPTY_TASK_PAGE)
+  }
+  return undefined
+}
