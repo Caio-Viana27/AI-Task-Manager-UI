@@ -68,5 +68,61 @@
       "next": "Próxima",
       "page": "Página {{page}} de {{totalPages}}"
     }
+  },
+  "form": {
+    "editLabel": "Editar tarefa",
+    "create": "Criar tarefa",
+    "creating": "Criando…",
+    "save": "Salvar alterações",
+    "saving": "Salvando…",
+    "cancel": "Cancelar",
+    "titleHint": "Até 100 caracteres.",
+    "descriptionHint": "Até 500 caracteres.",
+    "dueDateHint": "Opcional.",
+    "overdueHint": "O sistema marca tarefas atrasadas automaticamente. Escolha outro status para mudar.",
+    "validation": {
+      "titleRequired": "Informe um título.",
+      "titleTooLong": "O título pode ter no máximo 100 caracteres.",
+      "titleInvalid": "Informe um título com no máximo 100 caracteres.",
+      "descriptionRequired": "Informe uma descrição.",
+      "descriptionTooLong": "A descrição pode ter no máximo 500 caracteres.",
+      "descriptionInvalid": "Informe uma descrição com no máximo 500 caracteres.",
+      "dueDateInvalid": "Informe uma data válida.",
+      "priorityInvalid": "Escolha uma prioridade válida.",
+      "statusInvalid": "Escolha um status válido.",
+      "complexityInvalid": "Escolha uma complexidade válida."
+    }
+  },
+  "detail": {
+    "loading": "Carregando tarefa…",
+    "retry": "Tentar novamente",
+    "breadcrumb": "Tarefas superiores",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "noDueDate": "Sem data de entrega",
+    "createdAt": "Criada em",
+    "updatedAt": "Atualizada em",
+    "notFound": {
+      "title": "Tarefa não encontrada",
+      "body": "Esta tarefa não existe ou foi excluída.",
+      "backHome": "Voltar para suas tarefas"
+    },
+    "deleteDialog": {
+      "title": "Excluir esta tarefa?",
+      "message": "“{{title}}” e todas as suas subtarefas, em todos os níveis, serão excluídas. Isso não pode ser desfeito.",
+      "confirm": "Excluir",
+      "deleting": "Excluindo…"
+    }
+  },
+  "subtasks": {
+    "title": "Subtarefas",
+    "empty": "Nenhuma subtarefa ainda.",
+    "count_one": "{{count}} subtarefa",
+    "count_other": "{{count}} subtarefas",
+    "add": "Adicionar subtarefa",
+    "formLabel": "Nova subtarefa",
+    "create": "Adicionar subtarefa",
+    "creating": "Adicionando…",
+    "maxDepth": "Esta tarefa está na profundidade máxima, então não pode ter subtarefas."
   }
 }

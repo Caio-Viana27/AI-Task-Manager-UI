@@ -68,5 +68,61 @@
       "next": "Next",
       "page": "Page {{page}} of {{totalPages}}"
     }
+  },
+  "form": {
+    "editLabel": "Edit task",
+    "create": "Create task",
+    "creating": "Creating…",
+    "save": "Save changes",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "titleHint": "Up to 100 characters.",
+    "descriptionHint": "Up to 500 characters.",
+    "dueDateHint": "Optional.",
+    "overdueHint": "The system marks late tasks as overdue. Pick another status to change it.",
+    "validation": {
+      "titleRequired": "Enter a title.",
+      "titleTooLong": "The title can have at most 100 characters.",
+      "titleInvalid": "Enter a title of at most 100 characters.",
+      "descriptionRequired": "Enter a description.",
+      "descriptionTooLong": "The description can have at most 500 characters.",
+      "descriptionInvalid": "Enter a description of at most 500 characters.",
+      "dueDateInvalid": "Enter a valid date.",
+      "priorityInvalid": "Pick a valid priority.",
+      "statusInvalid": "Pick a valid status.",
+      "complexityInvalid": "Pick a valid complexity."
+    }
+  },
+  "detail": {
+    "loading": "Loading task…",
+    "retry": "Try again",
+    "breadcrumb": "Parent tasks",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noDueDate": "No due date",
+    "createdAt": "Created",
+    "updatedAt": "Updated",
+    "notFound": {
+      "title": "Task not found",
+      "body": "This task doesn't exist or was deleted.",
+      "backHome": "Back to your tasks"
+    },
+    "deleteDialog": {
+      "title": "Delete this task?",
+      "message": "“{{title}}” and all of its subtasks, at every level, will be deleted. This can't be undone.",
+      "confirm": "Delete",
+      "deleting": "Deleting…"
+    }
+  },
+  "subtasks": {
+    "title": "Subtasks",
+    "empty": "No subtasks yet.",
+    "count_one": "{{count}} subtask",
+    "count_other": "{{count}} subtasks",
+    "add": "Add a subtask",
+    "formLabel": "New subtask",
+    "create": "Add subtask",
+    "creating": "Adding…",
+    "maxDepth": "This task is at the maximum depth, so it can't have subtasks."
   }
 }
