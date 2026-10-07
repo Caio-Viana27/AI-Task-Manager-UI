@@ -3,7 +3,7 @@
   "INVALID_STATUS": "Esse status não é válido.",
   "INVALID_PRIORITY": "Essa prioridade não é válida.",
   "INVALID_COMPLEXITY": "Essa complexidade não é válida.",
-  "SUBTASK_DEPTH_EXCEEDED": "Uma subtarefa não pode ter subtarefas próprias.",
+  "SUBTASK_DEPTH_EXCEEDED": "Esta tarefa está na profundidade máxima e não pode receber mais subtarefas.",
   "UNAUTHORIZED": "Sua sessão expirou. Entre novamente.",
   "BAD_CREDENTIALS": "E-mail ou senha incorretos.",
   "TASK_NOT_FOUND": "Esta tarefa não existe.",
