@@ -7,12 +7,17 @@
     "dashboard": "Tasks",
     "newTask": "New task",
     "login": "Log in",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "logout": "Log out"
   },
   "language": {
     "label": "Language",
     "en": "EN",
     "ptBR": "PT-BR"
+  },
+  "session": {
+    "loading": "Loading your session…",
+    "retry": "Try again"
   },
   "placeholder": "This page is a placeholder. It arrives in a later wave.",
   "pages": {

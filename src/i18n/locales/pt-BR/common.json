@@ -7,12 +7,17 @@
     "dashboard": "Tarefas",
     "newTask": "Nova tarefa",
     "login": "Entrar",
-    "signup": "Criar conta"
+    "signup": "Criar conta",
+    "logout": "Sair"
   },
   "language": {
     "label": "Idioma",
     "en": "EN",
     "ptBR": "PT-BR"
+  },
+  "session": {
+    "loading": "Carregando sua sessão…",
+    "retry": "Tentar novamente"
   },
   "placeholder": "Esta página é provisória. Ela chega em uma próxima etapa.",
   "pages": {

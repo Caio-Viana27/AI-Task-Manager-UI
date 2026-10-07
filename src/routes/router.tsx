@@ -9,6 +9,7 @@ import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { ResetPasswordPage } from '../pages/ResetPasswordPage.tsx'
 import { SignupPage } from '../pages/SignupPage.tsx'
 import { TaskDetailPage } from '../pages/TaskDetailPage.tsx'
+import { GuestRoute } from './GuestRoute.tsx'
 import { ProtectedRoute } from './ProtectedRoute.tsx'
 
 /** Every route from PLAN §6. Exported separately so tests can mount them in a memory router. */
@@ -24,8 +25,22 @@ export const routes: RouteObject[] = [
       {
         element: <AppLayout />,
         children: [
-          { path: '/login', element: <LoginPage /> },
-          { path: '/signup', element: <SignupPage /> },
+          {
+            path: '/login',
+            element: (
+              <GuestRoute>
+                <LoginPage />
+              </GuestRoute>
+            ),
+          },
+          {
+            path: '/signup',
+            element: (
+              <GuestRoute>
+                <SignupPage />
+              </GuestRoute>
+            ),
+          },
           { path: '/forgot-password', element: <ForgotPasswordPage /> },
           { path: '/reset-password', element: <ResetPasswordPage /> },
           { path: '*', element: <NotFoundPage /> },

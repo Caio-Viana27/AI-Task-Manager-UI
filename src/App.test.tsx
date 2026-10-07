@@ -5,13 +5,13 @@ import App from './App.tsx'
 import { createTestQueryClient } from './test/renderRoute.tsx'
 
 describe('App', () => {
-  it('renders the dashboard at the root URL', async () => {
+  it('sends a visitor without a session from the root URL to login', async () => {
     render(
       <QueryClientProvider client={createTestQueryClient()}>
         <App />
       </QueryClientProvider>,
     )
 
-    expect(await screen.findByRole('heading', { level: 1, name: 'Your tasks' })).toBeDefined()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Log in' })).toBeDefined()
   })
 })
