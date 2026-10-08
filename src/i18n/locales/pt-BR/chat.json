@@ -1,0 +1,22 @@
+{
+  "panel": {
+    "title": "Assistente",
+    "open": "Abrir o assistente",
+    "close": "Fechar o assistente",
+    "intro": "Pergunte sobre suas tarefas. O assistente pode lê-las, mas não pode alterá-las.",
+    "messages": "Conversa",
+    "you": "Você",
+    "assistant": "Assistente",
+    "typing": "O assistente está digitando…",
+    "inputLabel": "Sua pergunta",
+    "placeholder": "Pergunte sobre suas tarefas…",
+    "send": "Enviar",
+    "clear": "Limpar conversa"
+  },
+  "examples": {
+    "title": "Experimente perguntar:",
+    "overdue": "Tenho tarefas atrasadas?",
+    "first": "O que devo fazer primeiro?",
+    "week": "O que vence esta semana?"
+  }
+}
