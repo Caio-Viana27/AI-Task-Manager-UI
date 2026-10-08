@@ -2,7 +2,7 @@ import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { getToken } from '../auth/tokenStorage.ts'
-import { dashboardResponse, jsonResponse, problemResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
+import { dashboardResponse, EMPTY_TASK_PAGE, jsonResponse, problemResponse, stubFetch, TEST_USER_RESPONSE } from '../test/fetchMock.ts'
 import { renderRoute } from '../test/renderRoute.tsx'
 import { redirectTarget } from './redirectTarget.ts'
 
@@ -67,26 +67,31 @@ describe('redirectTarget', () => {
   })
 })
 
-describe('AppLayout header', () => {
+describe('PublicLayout header', () => {
   it('shows "Log in" and "Sign up" when logged out', async () => {
     renderRoute('/forgot-password')
 
     const nav = within(await screen.findByRole('navigation'))
     expect(nav.getByRole('link', { name: 'Sign up' })).toBeDefined()
     expect(nav.getByRole('link', { name: 'Log in' })).toBeDefined()
-    expect(nav.queryByRole('link', { name: 'New task' })).toBeNull()
+    expect(nav.queryByRole('link', { name: 'All tasks' })).toBeNull()
     expect(screen.queryByRole('button', { name: 'Log out' })).toBeNull()
   })
+})
 
-  it('shows the user, the task links and "Log out" when logged in; logging out ends on /login', async () => {
+describe('AppShell sidebar', () => {
+  it('shows the user, the task views and "Log out" when logged in; logging out ends on /login', async () => {
     const user = userEvent.setup()
     stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
     const { router } = renderRoute('/', { token: 'stored-token' })
 
     expect(await screen.findByText('Ana Souza')).toBeDefined()
-    expect(screen.getByRole('link', { name: 'Tasks' })).toBeDefined()
-    expect(screen.getByRole('link', { name: 'New task' })).toBeDefined()
-    expect(within(screen.getByRole('navigation')).queryByRole('link', { name: 'Log in' })).toBeNull()
+    const nav = within(screen.getByRole('navigation'))
+    expect(nav.getByRole('link', { name: 'All tasks' }).getAttribute('aria-current')).toBe('page')
+    expect(nav.getByRole('link', { name: 'Completed' }).getAttribute('href')).toBe('/?status=DONE')
+    expect(nav.getByRole('link', { name: 'Today' })).toBeDefined()
+    expect(nav.getByRole('link', { name: 'Upcoming' })).toBeDefined()
+    expect(nav.queryByRole('link', { name: 'Log in' })).toBeNull()
 
     await user.click(screen.getByRole('button', { name: 'Log out' }))
 
@@ -94,5 +99,59 @@ describe('AppLayout header', () => {
     await waitFor(() => expect(router.state.location.pathname).toBe('/login'))
     expect(getToken()).toBeNull()
     expect(screen.queryByText('Ana Souza')).toBeNull()
+  })
+
+  it('marks the view that matches the URL, and shows the counts', async () => {
+    const user = userEvent.setup()
+    stubFetch(({ path }) => {
+      const [pathname, query = ''] = path.split('?')
+      const params = new URLSearchParams(query)
+      if (pathname === '/v1/tasks' && params.get('size') === '1') {
+        const total = params.getAll('status').join() === 'DONE' ? 4 : 9
+        return jsonResponse({ ...EMPTY_TASK_PAGE, totalElements: total })
+      }
+      return dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE)
+    })
+    const { router } = renderRoute('/', { token: 'stored-token' })
+    const nav = within(await screen.findByRole('navigation'))
+
+    await waitFor(() => expect(nav.getByRole('link', { name: 'Completed' }).textContent).toBe('Completed4'))
+    expect(nav.getByRole('link', { name: 'All tasks' }).textContent).toBe('All tasks9')
+
+    await user.click(nav.getByRole('link', { name: 'Completed' }))
+
+    expect(router.state.location.search).toBe('?status=DONE')
+    expect(nav.getByRole('link', { name: 'Completed' }).getAttribute('aria-current')).toBe('page')
+    expect(nav.getByRole('link', { name: 'All tasks' }).getAttribute('aria-current')).toBeNull()
+  })
+
+  it('opens as a drawer from the menu button and closes with Escape or its close button', async () => {
+    const user = userEvent.setup()
+    stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
+    renderRoute('/', { token: 'stored-token' })
+    const sidebar = (await screen.findByRole('navigation')).closest('aside') as HTMLElement
+    expect(sidebar.className).toContain('-translate-x-full')
+
+    await user.click(screen.getByRole('button', { name: 'Open menu' }))
+    expect(sidebar.className).not.toContain('-translate-x-full')
+    await user.keyboard('{Escape}')
+    expect(sidebar.className).toContain('-translate-x-full')
+
+    await user.click(screen.getByRole('button', { name: 'Open menu' }))
+    await user.click(screen.getByRole('button', { name: 'Close menu' }))
+    expect(sidebar.className).toContain('-translate-x-full')
+  })
+
+  it('collapses to icons on wide screens and remembers it', async () => {
+    const user = userEvent.setup()
+    stubFetch(({ path }) => dashboardResponse(path) ?? jsonResponse(TEST_USER_RESPONSE))
+    renderRoute('/', { token: 'stored-token' })
+
+    await user.click(await screen.findByRole('button', { name: 'Collapse sidebar' }))
+
+    expect(localStorage.getItem('planned.sidebarCollapsed')).toBe('true')
+    expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeDefined()
+    // The labels stay for screen readers.
+    expect(within(screen.getByRole('navigation')).getByRole('link', { name: 'All tasks' })).toBeDefined()
   })
 })

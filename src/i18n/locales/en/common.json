@@ -5,16 +5,24 @@
   },
   "nav": {
     "label": "Main",
-    "dashboard": "Tasks",
     "newTask": "New task",
     "login": "Log in",
     "signup": "Sign up",
-    "logout": "Log out"
+    "logout": "Log out",
+    "allTasks": "All tasks",
+    "today": "Today",
+    "upcoming": "Upcoming",
+    "completed": "Completed",
+    "assistant": "Assistant",
+    "newTag": "New",
+    "workspaceGroup": "Workspace",
+    "assistantGroup": "Your assistant"
   },
   "language": {
     "label": "Language",
     "en": "EN",
-    "ptBR": "PT-BR"
+    "ptBR": "PT-BR",
+    "menu": "Language: {{language}}"
   },
   "session": {
     "loading": "Loading your session…",
@@ -30,7 +38,8 @@
     },
     "dashboard": {
       "title": "Your tasks",
-      "subtitle": "Everything on your plate, filtered and sorted your way."
+      "subtitle": "Make room for what matters. One task at a time.",
+      "eyebrow": "More clarity, less noise"
     },
     "newTask": {
       "title": "New task",
@@ -47,5 +56,24 @@
   "dialog": {
     "confirm": "Confirm",
     "cancel": "Cancel"
+  },
+  "shell": {
+    "workspaceName": "My space",
+    "workspaceKind": "Personal workspace",
+    "account": "Personal account",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "sections": {
+      "tasks": "Tasks",
+      "newTask": "New task",
+      "task": "Task"
+    },
+    "quote": {
+      "title": "One step at a time.",
+      "body": "Progress starts in the present."
+    },
+    "footer": "Fewer lists in your head. More room in your life."
   }
 }

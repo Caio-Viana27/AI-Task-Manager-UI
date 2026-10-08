@@ -5,16 +5,24 @@
   },
   "nav": {
     "label": "Principal",
-    "dashboard": "Tarefas",
     "newTask": "Nova tarefa",
     "login": "Entrar",
     "signup": "Criar conta",
-    "logout": "Sair"
+    "logout": "Sair",
+    "allTasks": "Todas as tarefas",
+    "today": "Hoje",
+    "upcoming": "Próximos dias",
+    "completed": "Concluídas",
+    "assistant": "Assistente",
+    "newTag": "Novo",
+    "workspaceGroup": "Workspace",
+    "assistantGroup": "Seu assistente"
   },
   "language": {
     "label": "Idioma",
     "en": "EN",
-    "ptBR": "PT-BR"
+    "ptBR": "PT-BR",
+    "menu": "Idioma: {{language}}"
   },
   "session": {
     "loading": "Carregando sua sessão…",
@@ -30,7 +38,8 @@
     },
     "dashboard": {
       "title": "Suas tarefas",
-      "subtitle": "Tudo o que você tem a fazer, filtrado e ordenado do seu jeito."
+      "subtitle": "Abra espaço para o que importa. Uma tarefa de cada vez.",
+      "eyebrow": "Mais clareza, menos ruído"
     },
     "newTask": {
       "title": "Nova tarefa",
@@ -47,5 +56,24 @@
   "dialog": {
     "confirm": "Confirmar",
     "cancel": "Cancelar"
+  },
+  "shell": {
+    "workspaceName": "Meu espaço",
+    "workspaceKind": "Workspace pessoal",
+    "account": "Conta pessoal",
+    "collapse": "Recolher barra lateral",
+    "expand": "Expandir barra lateral",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "sections": {
+      "tasks": "Tarefas",
+      "newTask": "Nova tarefa",
+      "task": "Tarefa"
+    },
+    "quote": {
+      "title": "Um passo de cada vez.",
+      "body": "O progresso começa no presente."
+    },
+    "footer": "Menos listas na cabeça. Mais espaço na vida."
   }
 }

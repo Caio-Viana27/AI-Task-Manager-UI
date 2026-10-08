@@ -11,7 +11,8 @@
     "inputLabel": "Sua pergunta",
     "placeholder": "Pergunte sobre suas tarefas…",
     "send": "Enviar",
-    "clear": "Limpar conversa"
+    "clear": "Limpar conversa",
+    "hide": "Ocultar o assistente"
   },
   "examples": {
     "title": "Experimente perguntar:",

@@ -10,9 +10,11 @@ import {
   useCreateSubtasks,
   useCreateTask,
   useDeleteTask,
+  useFirstTask,
   useLookups,
   usePatchTask,
   useTask,
+  useTaskCount,
   useTasks,
   useUpdateTask,
 } from './tasks.ts'
@@ -80,6 +82,44 @@ describe('task queries', () => {
 
     await waitFor(() => expect(result.current.data).toEqual(page))
     expect(fetchMock.mock.calls[0][0]).toBe('/api/v1/tasks?status=TODO')
+  })
+
+  it('useTaskCount asks for one item and returns the total, under the lists prefix', async () => {
+    const page = { content: [task(ROOT, null)], page: 0, size: 1, totalElements: 7, totalPages: 7 }
+    const fetchMock = stubFetch(() => jsonResponse(page))
+    const { queryClient, wrapper } = setup()
+
+    const { result } = renderHook(() => useTaskCount({ status: ['DONE'] }), { wrapper })
+
+    await waitFor(() => expect(result.current.data).toBe(7))
+    expect(fetchMock.mock.calls[0][0]).toBe('/api/v1/tasks?status=DONE&page=0&size=1')
+    await queryClient.invalidateQueries({ queryKey: taskKeys.lists() })
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2))
+  })
+
+  it('useTaskCount stays idle when disabled', () => {
+    const fetchMock = stubFetch(() => jsonResponse({}))
+    const { wrapper } = setup()
+
+    const { result } = renderHook(() => useTaskCount({}, false), { wrapper })
+
+    expect(result.current.fetchStatus).toBe('idle')
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
+  it('useFirstTask returns the first task in the sort order, or null', async () => {
+    let content = [task(ROOT, null)]
+    const fetchMock = stubFetch(() => jsonResponse({ content, page: 0, size: 1, totalElements: content.length, totalPages: 1 }))
+    const { queryClient, wrapper } = setup()
+
+    const { result } = renderHook(() => useFirstTask({ status: ['TODO'] }, 'dueDate,asc'), { wrapper })
+
+    await waitFor(() => expect(result.current.data?.id).toBe(ROOT))
+    expect(fetchMock.mock.calls[0][0]).toBe('/api/v1/tasks?status=TODO&page=0&size=1&sort=dueDate%2Casc')
+
+    content = []
+    await queryClient.invalidateQueries({ queryKey: taskKeys.lists() })
+    await waitFor(() => expect(result.current.data).toBeNull())
   })
 
   it('useTask stays idle without an id', () => {

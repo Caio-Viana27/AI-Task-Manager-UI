@@ -4,10 +4,11 @@ import { useLookups } from '../../../api/queries/tasks.ts'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
 import { XIcon } from '../../../components/icons.tsx'
 import { hasActiveFilters, isIsoDate, type DashboardState } from './dashboardParams.ts'
-import { SearchInput } from './SearchInput.tsx'
 import type { UpdateOptions } from './useDashboardParams.ts'
 
 interface TaskFiltersPanelProps {
+  /** For the "Filters" button's `aria-controls`. */
+  id: string
   state: DashboardState
   onChange: (changes: Partial<Omit<DashboardState, 'page'>>, options?: UpdateOptions) => void
   onClear: () => void
@@ -75,17 +76,17 @@ function DateInput({ label, value, onChange }: DateInputProps) {
   )
 }
 
-/** Status, priority and complexity multi-selects, a due-date range, text search and the subtask toggle. */
-export function TaskFiltersPanel({ state, onChange, onClear }: TaskFiltersPanelProps) {
+/**
+ * The panel the "Filters" button opens: status, priority and complexity multi-selects, a due-date
+ * range and the subtask toggle. The text search and the status tabs sit outside it.
+ */
+export function TaskFiltersPanel({ id, state, onChange, onClear }: TaskFiltersPanelProps) {
   const { t } = useTranslation('tasks')
   const lookups = useLookups()
 
   return (
-    <section aria-label={t('list.filters.label')} className="card p-5">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="sm:col-span-2">
-          <SearchInput value={state.q} onSearch={(q) => onChange({ q }, { replace: true })} />
-        </div>
+    <section id={id} aria-label={t('list.filters.label')} className="card animate-fade-in p-5">
+      <div className="grid gap-4 sm:grid-cols-2">
         <DateInput
           label={t('list.filters.dueFrom')}
           value={state.dueFrom}

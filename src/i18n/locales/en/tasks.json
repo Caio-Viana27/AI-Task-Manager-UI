@@ -28,8 +28,6 @@
     "newTask": "Add a task",
     "loading": "Loading tasks…",
     "retry": "Try again",
-    "count_one": "{{count}} task",
-    "count_other": "{{count}} tasks",
     "noDueDate": "No due date",
     "subtask": "Subtask",
     "markDone": "Mark “{{title}}” as done",
@@ -45,11 +43,14 @@
     "filters": {
       "label": "Filters",
       "search": "Search",
-      "searchPlaceholder": "Title or description",
+      "searchPlaceholder": "Search a task…",
       "dueFrom": "Due from",
       "dueTo": "Due to",
       "includeSubtasks": "Include subtasks",
-      "clear": "Clear filters"
+      "clear": "Clear filters",
+      "toggle": "Filters",
+      "activeCount_one": "{{count}} active",
+      "activeCount_other": "{{count}} active"
     },
     "sort": {
       "label": "Sort by",
@@ -67,6 +68,23 @@
       "previous": "Previous",
       "next": "Next",
       "page": "Page {{page}} of {{totalPages}}"
+    },
+    "columns": {
+      "task": "Task",
+      "priority": "Priority",
+      "due": "Due"
+    },
+    "dueToday": "Today",
+    "dueTomorrow": "Tomorrow",
+    "footer": {
+      "count_one": "{{count}} task in your space",
+      "count_other": "{{count}} tasks in your space",
+      "calm": "All in your own time"
+    },
+    "menu": {
+      "label": "Actions for “{{title}}”",
+      "open": "Open",
+      "delete": "Delete"
     }
   },
   "form": {
@@ -124,5 +142,24 @@
     "create": "Add subtask",
     "creating": "Adding…",
     "maxDepth": "This task is at the maximum depth, so it can't have subtasks."
+  },
+  "stats": {
+    "label": "Summary",
+    "open": "Open tasks",
+    "openHint": "to make happen",
+    "today": "Due today",
+    "todayHint": "at your own pace",
+    "done": "Completed",
+    "doneHint": "small wins"
+  },
+  "planning": {
+    "title": "Your planning",
+    "tabs": {
+      "label": "Status",
+      "all": "All",
+      "todo": "To do",
+      "inProgress": "In progress",
+      "done": "Completed"
+    }
   }
 }

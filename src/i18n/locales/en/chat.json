@@ -11,7 +11,8 @@
     "inputLabel": "Your question",
     "placeholder": "Ask about your tasks…",
     "send": "Send",
-    "clear": "Clear chat"
+    "clear": "Clear chat",
+    "hide": "Hide the assistant"
   },
   "examples": {
     "title": "Try asking:",

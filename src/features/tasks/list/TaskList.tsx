@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import { useTasks } from '../../../api/queries/tasks.ts'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
-import { InboxIcon, PlusIcon } from '../../../components/icons.tsx'
+import { CheckIcon, InboxIcon, PlusIcon } from '../../../components/icons.tsx'
+import { CHECK_OFFSET, DUE_COLUMN, MENU_COLUMN, PRIORITY_COLUMN } from './columns.ts'
 import { hasActiveFilters, toTaskFilters, type DashboardState } from './dashboardParams.ts'
 import { Pagination } from './Pagination.tsx'
 import { TaskRow } from './TaskRow.tsx'
@@ -18,8 +19,8 @@ const SECONDARY_BUTTON = 'btn btn-secondary'
 
 function EmptyState({ title, body, children }: { title: string; body?: string; children?: ReactNode }) {
   return (
-    <div className="flex flex-col items-center rounded-2xl border border-dashed border-stone-300 bg-white/60 px-6 py-14 text-center">
-      <span className="flex size-12 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+    <div className="flex flex-col items-center rounded-xl border border-dashed border-stone-300 bg-white/60 px-6 py-14 text-center">
+      <span className="flex size-12 items-center justify-center rounded-full bg-sage-100 text-brand-700">
         <InboxIcon className="size-6" />
       </span>
       <h2 className="mt-4 text-lg font-semibold text-stone-800">{title}</h2>
@@ -36,7 +37,7 @@ export function TaskList({ state, onPageChange, onClearFilters }: TaskListProps)
 
   if (query.isPending) {
     return (
-      <div role="status" className="card divide-y divide-stone-100 overflow-hidden">
+      <div role="status" className="card divide-y divide-line overflow-hidden">
         <span className="sr-only">{t('list.loading')}</span>
         {[0, 1, 2, 3].map((row) => (
           <div key={row} aria-hidden="true" className="flex items-center gap-3 px-5 py-4">
@@ -94,18 +95,33 @@ export function TaskList({ state, onPageChange, onClearFilters }: TaskListProps)
   }
 
   return (
-    <div className="flex flex-col gap-3" aria-busy={query.isPlaceholderData}>
-      <p className="px-1 text-xs font-medium tracking-wide text-stone-500 uppercase">
-        {t('list.count', { count: totalElements })}
-      </p>
-      <ul
-        className={`card divide-y divide-stone-100 overflow-hidden transition-opacity ${query.isPlaceholderData ? 'opacity-60' : ''}`}
-      >
+    <div className="flex flex-col gap-2" aria-busy={query.isPlaceholderData}>
+      <div aria-hidden="true" className={`eyebrow hidden items-center gap-4 px-5 text-[0.625rem] sm:flex ${CHECK_OFFSET}`}>
+        <span className="flex-1">{t('list.columns.task')}</span>
+        <span className={PRIORITY_COLUMN}>{t('list.columns.priority')}</span>
+        <span className={DUE_COLUMN}>{t('list.columns.due')}</span>
+        <span className={MENU_COLUMN} />
+      </div>
+      <ul className={`card divide-y divide-line overflow-hidden transition-opacity ${query.isPlaceholderData ? 'opacity-60' : ''}`}>
         {content.map((task) => (
           <TaskRow key={task.id} task={task} />
         ))}
       </ul>
+      <Link
+        to="/tasks/new"
+        className="mt-2 inline-flex items-center gap-3 self-start rounded-lg px-4 py-2 text-sm text-stone-600 transition-colors hover:bg-white hover:text-brand-800"
+      >
+        <PlusIcon className="size-4" />
+        {t('list.newTask')}
+      </Link>
       {totalPages > 1 && <Pagination page={state.page} totalPages={totalPages} onPageChange={onPageChange} />}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-line pt-4 text-xs text-stone-500">
+        <p>{t('list.footer.count', { count: totalElements })}</p>
+        <p className="inline-flex items-center gap-1.5">
+          <CheckIcon className="size-3.5 text-sage-500" />
+          {t('list.footer.calm')}
+        </p>
+      </div>
     </div>
   )
 }

@@ -2,7 +2,8 @@ import { useEffect, useId, useRef, useState, type FormEvent, type KeyboardEvent 
 import { useTranslation } from 'react-i18next'
 import { useSendChatMessage, type ChatMessage } from '../../api/chat.ts'
 import { ErrorMessage } from '../../components/ErrorMessage.tsx'
-import { ChevronDownIcon, SendIcon, SparklesIcon } from '../../components/icons.tsx'
+import { SendIcon, SparklesIcon, XIcon } from '../../components/icons.tsx'
+import { useShell } from '../../layouts/useShell.ts'
 
 /** `message` limit (PLAN §5). */
 export const MAX_MESSAGE_LENGTH = 1000
@@ -16,13 +17,13 @@ interface ListedMessage extends ChatMessage {
 }
 
 /**
- * The read-only chat assistant (PLAN §5, Chat), in the protected `AppLayout`'s slot (wave 4, D7).
+ * The read-only chat assistant (PLAN §5, Chat), in the signed-in `AppShell`'s assistant column (wave 4, D7).
  * The conversation lives only in this component's state (D8): it survives navigation between
  * protected pages and is gone after logout, which unmounts the layout.
  */
 export function ChatPanel() {
   const { t } = useTranslation('chat')
-  const [open, setOpen] = useState(false)
+  const { assistantOpen: open, setAssistantOpen } = useShell()
   const [messages, setMessages] = useState<ListedMessage[]>([])
   const [input, setInput] = useState('')
   const nextId = useRef(0)
@@ -81,28 +82,29 @@ export function ChatPanel() {
     send.reset()
   }
 
+  if (!open) {
+    // Hidden, but still mounted, so the conversation is kept (D8).
+    return null
+  }
+
   return (
     <section aria-label={t('panel.title')} className="card sticky top-24 overflow-hidden">
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls={bodyId}
-        aria-label={open ? t('panel.close') : t('panel.open')}
-        onClick={() => setOpen((current) => !current)}
-        className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-stone-800 transition-colors hover:bg-stone-50"
-      >
-        <span className="flex items-center gap-3">
-          <span
-            aria-hidden="true"
-            className="flex size-8 items-center justify-center rounded-lg bg-sage-400 text-brand-900 shadow-sm"
-          >
+      <div className="flex items-center justify-between gap-3 px-4 py-3">
+        <span className="flex items-center gap-3 text-sm font-semibold text-stone-800">
+          <span aria-hidden="true" className="flex size-8 items-center justify-center rounded-lg bg-sage-100 text-brand-700">
             <SparklesIcon className="size-4" />
           </span>
           {t('panel.title')}
         </span>
-        <ChevronDownIcon className={`size-4 text-stone-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
-      </button>
-      {open && (
+        <button
+          type="button"
+          onClick={() => setAssistantOpen(false)}
+          aria-label={t('panel.hide')}
+          className="btn btn-ghost p-1.5"
+        >
+          <XIcon />
+        </button>
+      </div>
         <div id={bodyId} className="flex animate-fade-in flex-col gap-3 border-t border-stone-100 p-4">
           {messages.length === 0 ? (
             <div className="text-sm text-stone-600">
@@ -189,7 +191,6 @@ export function ChatPanel() {
             </div>
           </form>
         </div>
-      )}
     </section>
   )
 }

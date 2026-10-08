@@ -1,7 +1,8 @@
 import { createBrowserRouter, Outlet, type RouteObject } from 'react-router'
 import { AuthProvider } from '../auth/AuthProvider.tsx'
 import { ChatPanel } from '../features/chat/ChatPanel.tsx'
-import { AppLayout } from '../layouts/AppLayout.tsx'
+import { AppShell } from '../layouts/AppShell.tsx'
+import { PublicLayout } from '../layouts/PublicLayout.tsx'
 import { DashboardPage } from '../pages/DashboardPage.tsx'
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage.tsx'
 import { LoginPage } from '../pages/LoginPage.tsx'
@@ -24,7 +25,7 @@ export const routes: RouteObject[] = [
     ),
     children: [
       {
-        element: <AppLayout />,
+        element: <PublicLayout />,
         children: [
           {
             path: '/login',
@@ -50,7 +51,7 @@ export const routes: RouteObject[] = [
       {
         element: (
           <ProtectedRoute>
-            <AppLayout chatPanel={<ChatPanel />} />
+            <AppShell assistant={<ChatPanel />} />
           </ProtectedRoute>
         ),
         children: [

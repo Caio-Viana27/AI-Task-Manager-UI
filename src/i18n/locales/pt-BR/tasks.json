@@ -25,11 +25,9 @@
     "none": "Não estimada"
   },
   "list": {
-    "newTask": "Adicionar tarefa",
+    "newTask": "Adicionar uma tarefa",
     "loading": "Carregando tarefas…",
     "retry": "Tentar novamente",
-    "count_one": "{{count}} tarefa",
-    "count_other": "{{count}} tarefas",
     "noDueDate": "Sem data de entrega",
     "subtask": "Subtarefa",
     "markDone": "Marcar “{{title}}” como concluída",
@@ -45,11 +43,14 @@
     "filters": {
       "label": "Filtros",
       "search": "Buscar",
-      "searchPlaceholder": "Título ou descrição",
+      "searchPlaceholder": "Buscar uma tarefa…",
       "dueFrom": "Entrega a partir de",
       "dueTo": "Entrega até",
       "includeSubtasks": "Incluir subtarefas",
-      "clear": "Limpar filtros"
+      "clear": "Limpar filtros",
+      "toggle": "Filtros",
+      "activeCount_one": "{{count}} ativo",
+      "activeCount_other": "{{count}} ativos"
     },
     "sort": {
       "label": "Ordenar por",
@@ -67,6 +68,23 @@
       "previous": "Anterior",
       "next": "Próxima",
       "page": "Página {{page}} de {{totalPages}}"
+    },
+    "columns": {
+      "task": "Tarefa",
+      "priority": "Prioridade",
+      "due": "Entrega"
+    },
+    "dueToday": "Hoje",
+    "dueTomorrow": "Amanhã",
+    "footer": {
+      "count_one": "{{count}} tarefa no seu espaço",
+      "count_other": "{{count}} tarefas no seu espaço",
+      "calm": "Tudo no seu tempo"
+    },
+    "menu": {
+      "label": "Ações de “{{title}}”",
+      "open": "Abrir",
+      "delete": "Excluir"
     }
   },
   "form": {
@@ -124,5 +142,24 @@
     "create": "Adicionar subtarefa",
     "creating": "Adicionando…",
     "maxDepth": "Esta tarefa está na profundidade máxima, então não pode ter subtarefas."
+  },
+  "stats": {
+    "label": "Resumo",
+    "open": "Tarefas em aberto",
+    "openHint": "para fazer acontecer",
+    "today": "Para hoje",
+    "todayHint": "no seu ritmo",
+    "done": "Concluídas",
+    "doneHint": "pequenos avanços"
+  },
+  "planning": {
+    "title": "Seu planejamento",
+    "tabs": {
+      "label": "Status",
+      "all": "Todas",
+      "todo": "A fazer",
+      "inProgress": "Em andamento",
+      "done": "Concluídas"
+    }
   }
 }

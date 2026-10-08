@@ -13,6 +13,7 @@ import {
   type Task,
   type TaskDetail,
   type TaskFilters,
+  type TaskSort,
   type UpdateTaskRequest,
 } from '../tasks.ts'
 
@@ -32,6 +33,37 @@ export function useTasks(filters: TaskFilters) {
     queryFn: ({ signal }) => listTasks(filters, signal),
     // Keep the current page on screen while the next filter or page loads.
     placeholderData: keepPreviousData,
+  })
+}
+
+/** The filters a count looks at: no page, size or sort. */
+export type CountFilters = Omit<TaskFilters, 'page' | 'size' | 'sort'>
+
+/**
+ * How many tasks match `filters`, read from `totalElements` of a one-item page. It lives under
+ * the lists prefix, so every task write refreshes it.
+ */
+export function useTaskCount(filters: CountFilters, enabled = true) {
+  const request: TaskFilters = { ...filters, page: 0, size: 1 }
+  return useQuery({
+    queryKey: taskKeys.list(request),
+    queryFn: ({ signal }) => listTasks(request, signal),
+    select: (page) => page.totalElements,
+    enabled,
+  })
+}
+
+/**
+ * The first task of `filters` in `sort` order, or `null` when none match. Used for the
+ * assistant's "next step".
+ */
+export function useFirstTask(filters: CountFilters, sort: TaskSort, enabled = true) {
+  const request: TaskFilters = { ...filters, page: 0, size: 1, sort }
+  return useQuery({
+    queryKey: taskKeys.list(request),
+    queryFn: ({ signal }) => listTasks(request, signal),
+    select: (page) => page.content[0] ?? null,
+    enabled,
   })
 }
 
