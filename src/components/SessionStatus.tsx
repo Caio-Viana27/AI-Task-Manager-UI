@@ -5,7 +5,8 @@ export function SessionLoading() {
   const { t } = useTranslation()
 
   return (
-    <div role="status" className="flex min-h-screen items-center justify-center bg-slate-50 text-slate-600">
+    <div role="status" className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-50 text-sm text-slate-600">
+      <span aria-hidden="true" className="size-8 animate-spin rounded-full border-3 border-brand-200 border-t-brand-600" />
       {t('session.loading')}
     </div>
   )
@@ -25,7 +26,7 @@ export function SessionError({ onRetry }: SessionErrorProps) {
       <button
         type="button"
         onClick={onRetry}
-        className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+        className="btn btn-primary"
       >
         {t('session.retry')}
       </button>

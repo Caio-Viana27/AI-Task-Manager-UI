@@ -16,15 +16,15 @@ export function FormField({ label, error, hint, className, ...inputProps }: Form
   const describedBy = error ? errorId : hint ? hintId : undefined
 
   return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="text-sm font-medium text-slate-700">
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="field-label">
         {label}
       </label>
       <input
         id={id}
         aria-invalid={error ? true : undefined}
         aria-describedby={describedBy}
-        className={`rounded-md border px-3 py-2 text-sm ${error ? 'border-red-500' : 'border-slate-300'} ${className ?? ''}`}
+        className={`input ${error ? 'input-error' : ''} ${className ?? ''}`}
         {...inputProps}
       />
       {hint && !error && (

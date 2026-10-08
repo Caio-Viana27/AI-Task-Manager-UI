@@ -5,9 +5,12 @@ export function NotFoundPage() {
   const { t } = useTranslation()
 
   return (
-    <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-semibold">{t('pages.notFound.title')}</h1>
-      <Link to="/" className="mt-4 inline-block text-sm text-blue-600 hover:underline">
+    <section className="card mx-auto flex max-w-xl flex-col items-center p-10 text-center">
+      <p aria-hidden="true" className="bg-linear-to-br from-violet-600 to-brand-600 bg-clip-text text-6xl font-bold text-transparent">
+        404
+      </p>
+      <h1 className="mt-2 text-2xl font-bold tracking-tight">{t('pages.notFound.title')}</h1>
+      <Link to="/" className="btn btn-secondary mt-6">
         {t('pages.notFound.backHome')}
       </Link>
     </section>

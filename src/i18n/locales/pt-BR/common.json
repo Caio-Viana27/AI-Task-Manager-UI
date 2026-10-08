@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "Planned"
+    "name": "Planned",
+    "tagline": "Planeje melhor. Deixe a IA dividir o trabalho."
   },
   "nav": {
     "label": "Principal",
@@ -28,10 +29,12 @@
       "title": "Redefinir senha"
     },
     "dashboard": {
-      "title": "Suas tarefas"
+      "title": "Suas tarefas",
+      "subtitle": "Tudo o que você tem a fazer, filtrado e ordenado do seu jeito."
     },
     "newTask": {
-      "title": "Nova tarefa"
+      "title": "Nova tarefa",
+      "subtitle": "Descreva o que precisa ser feito. A IA pode completar os detalhes."
     },
     "taskDetail": {
       "title": "Tarefa {{id}}"

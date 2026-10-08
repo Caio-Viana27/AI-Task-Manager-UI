@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useBreakdownTask } from '../../api/aiBreakdown.ts'
 import type { TaskDetail } from '../../api/tasks.ts'
 import { ErrorMessage } from '../../components/ErrorMessage.tsx'
+import { SparklesIcon } from '../../components/icons.tsx'
 import { DraftEditor } from './breakdown/DraftEditor.tsx'
 
 export interface AiBreakdownSlotProps {
@@ -34,8 +35,9 @@ export function AiBreakdownSlot({ task, canAddSubtasks }: AiBreakdownSlotProps) 
             type="button"
             onClick={() => breakdown.mutate(task.id)}
             disabled={breakdown.isPending}
-            className="rounded-md border border-violet-300 px-3 py-1.5 text-sm font-medium text-violet-800 hover:bg-violet-50 disabled:opacity-60"
+            className="btn btn-ai"
           >
+            <SparklesIcon className={`size-4 ${breakdown.isPending ? 'animate-pulse' : ''}`} />
             {breakdown.isPending ? t('loading') : t('button')}
           </button>
         </div>

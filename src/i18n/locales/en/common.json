@@ -1,6 +1,7 @@
 {
   "app": {
-    "name": "Planned"
+    "name": "Planned",
+    "tagline": "Plan smarter. Let AI break down the work."
   },
   "nav": {
     "label": "Main",
@@ -28,10 +29,12 @@
       "title": "Reset password"
     },
     "dashboard": {
-      "title": "Your tasks"
+      "title": "Your tasks",
+      "subtitle": "Everything on your plate, filtered and sorted your way."
     },
     "newTask": {
-      "title": "New task"
+      "title": "New task",
+      "subtitle": "Describe what needs doing. AI can fill in the details."
     },
     "taskDetail": {
       "title": "Task {{id}}"

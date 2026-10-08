@@ -84,11 +84,11 @@ export function SignupPage() {
   return (
     <AuthCard title={t('signup.title')}>
       {formError && (
-        <p role="alert" className="mt-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p role="alert" className="alert-error mt-6">
           {t(formError)}
         </p>
       )}
-      <form noValidate onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+      <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <FormField
           label={t('fields.email')}
           type="email"
@@ -122,14 +122,14 @@ export function SignupPage() {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+          className="btn btn-primary mt-2 w-full py-2.5"
         >
           {mutation.isPending ? t('signup.submitting') : t('signup.submit')}
         </button>
       </form>
-      <p className="mt-4 text-sm text-slate-600">
+      <p className="mt-6 border-t border-slate-100 pt-6 text-center text-sm text-slate-600">
         {t('signup.haveAccount')}{' '}
-        <Link to="/login" className="text-blue-600 hover:underline">
+        <Link to="/login" className="link">
           {t('signup.loginLink')}
         </Link>
       </p>

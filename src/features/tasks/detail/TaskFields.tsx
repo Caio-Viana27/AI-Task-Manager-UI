@@ -16,8 +16,8 @@ function formatInstant(instant: string, language: string): string {
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-1">
-      <dt className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</dt>
+    <div className="flex flex-col gap-1.5">
+      <dt className="text-xs font-semibold tracking-wide text-slate-500 uppercase">{label}</dt>
       <dd className="text-sm text-slate-900">{children}</dd>
     </div>
   )
@@ -34,11 +34,11 @@ export function TaskFields({ task }: TaskFieldsProps) {
   const overdue = task.status === 'OVERDUE'
 
   return (
-    <dl className="flex flex-col gap-4">
+    <dl className="flex flex-col gap-6">
       <Field label={t('fields.description')}>
-        <p className="whitespace-pre-wrap">{task.description}</p>
+        <p className="leading-relaxed whitespace-pre-wrap text-slate-700">{task.description}</p>
       </Field>
-      <div className="grid gap-4 sm:grid-cols-4">
+      <div className="grid gap-4 rounded-xl bg-slate-50 p-4 ring-1 ring-slate-100 sm:grid-cols-4">
         <Field label={t('fields.status')}>
           <StatusBadge status={task.status} />
         </Field>
@@ -54,7 +54,7 @@ export function TaskFields({ task }: TaskFieldsProps) {
           </span>
         </Field>
       </div>
-      <div className="grid gap-4 text-slate-600 sm:grid-cols-4">
+      <div className="grid gap-4 text-slate-500 sm:grid-cols-4 [&_dd]:text-slate-500">
         <Field label={t('detail.createdAt')}>{formatInstant(task.createdAt, i18n.language)}</Field>
         <Field label={t('detail.updatedAt')}>{formatInstant(task.updatedAt, i18n.language)}</Field>
       </div>

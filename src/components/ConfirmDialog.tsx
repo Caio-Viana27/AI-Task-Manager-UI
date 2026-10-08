@@ -59,11 +59,11 @@ export function ConfirmDialog({
     return null
   }
 
-  const confirmColor = destructive ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
+  const confirmVariant = destructive ? 'btn-danger' : 'btn-primary'
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4"
+      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm"
       onClick={(event) => {
         if (event.target === event.currentTarget && !pending) {
           onCancel()
@@ -75,7 +75,7 @@ export function ConfirmDialog({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={messageId}
-        className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg"
+        className="w-full max-w-md animate-pop-in rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-slate-900/5"
         onKeyDown={(event) => {
           if (event.key === 'Escape' && !pending) {
             event.stopPropagation()
@@ -96,7 +96,7 @@ export function ConfirmDialog({
             type="button"
             disabled={pending}
             onClick={onCancel}
-            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+            className="btn btn-secondary"
           >
             {cancelLabel ?? t('dialog.cancel')}
           </button>
@@ -104,7 +104,7 @@ export function ConfirmDialog({
             type="button"
             disabled={pending}
             onClick={onConfirm}
-            className={`rounded-md px-4 py-2 text-sm font-medium text-white disabled:opacity-60 ${confirmColor}`}
+            className={`btn ${confirmVariant}`}
           >
             {confirmLabel ?? t('dialog.confirm')}
           </button>

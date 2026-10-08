@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { SuggestResponse } from '../../../api/ai.ts'
+import { SparklesIcon } from '../../../components/icons.tsx'
 import type { AiSuggestFields } from '../AiSuggestSlot.tsx'
 
 type Field = keyof AiSuggestFields
@@ -65,12 +66,18 @@ export function SuggestReview({ current, suggestion, onAccept, onDismiss, disabl
   }
 
   return (
-    <div role="group" aria-label={t('suggest.reviewTitle')} className="flex flex-col gap-3 rounded-md border border-violet-200 bg-violet-50 p-3">
-      <h3 className="text-sm font-semibold text-violet-900">{t('suggest.reviewTitle')}</h3>
-      <ul className="flex flex-col gap-3">
+    <div role="group" aria-label={t('suggest.reviewTitle')} className="flex animate-fade-in flex-col gap-3 rounded-xl border border-violet-200 bg-white/80 p-4">
+      <h3 className="flex items-center gap-2 text-sm font-semibold text-violet-900">
+        <SparklesIcon className="size-4 text-violet-600" />
+        {t('suggest.reviewTitle')}
+      </h3>
+      <ul className="flex flex-col gap-2">
         {FIELDS.map((field) => (
-          <li key={field} className="rounded-md bg-white p-2 text-sm">
-            <label className="flex items-center gap-2 font-medium text-slate-800">
+          <li
+            key={field}
+            className="rounded-lg bg-white p-3 text-sm ring-1 ring-slate-200 transition-colors has-checked:ring-violet-300"
+          >
+            <label className="flex cursor-pointer items-center gap-2 font-medium text-slate-800">
               <input
                 type="checkbox"
                 checked={selected[field]}
@@ -78,28 +85,28 @@ export function SuggestReview({ current, suggestion, onAccept, onDismiss, disabl
               />
               {t(USE_KEYS[field])}
             </label>
-            <dl className="mt-1 grid gap-1 sm:grid-cols-2">
+            <dl className="mt-2 grid gap-2 sm:grid-cols-2">
               <div>
-                <dt className="text-xs text-slate-500">{t('suggest.current')}</dt>
-                <dd className="break-words whitespace-pre-wrap text-slate-600">{display(field, current)}</dd>
+                <dt className="text-xs font-medium text-slate-400">{t('suggest.current')}</dt>
+                <dd className="break-words whitespace-pre-wrap text-slate-500 line-through decoration-slate-300">{display(field, current)}</dd>
               </div>
               <div>
-                <dt className="text-xs text-slate-500">{t('suggest.suggested')}</dt>
-                <dd className="break-words whitespace-pre-wrap text-slate-900">{display(field, suggested)}</dd>
+                <dt className="text-xs font-medium text-violet-600">{t('suggest.suggested')}</dt>
+                <dd className="rounded-md bg-violet-50 px-2 py-1 break-words whitespace-pre-wrap text-slate-900">{display(field, suggested)}</dd>
               </div>
             </dl>
           </li>
         ))}
       </ul>
-      <div className="text-sm">
-        <p className="text-xs text-slate-500">{t('suggest.reasoning')}</p>
-        <p className="break-words whitespace-pre-wrap text-slate-700">{suggestion.reasoning}</p>
+      <div className="rounded-lg bg-violet-50/60 p-3 text-sm">
+        <p className="text-xs font-semibold text-violet-700">{t('suggest.reasoning')}</p>
+        <p className="mt-1 break-words whitespace-pre-wrap text-slate-700">{suggestion.reasoning}</p>
       </div>
       <div className="flex flex-wrap justify-end gap-2">
         <button
           type="button"
           onClick={onDismiss}
-          className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          className="btn btn-ghost"
         >
           {t('suggest.dismiss')}
         </button>
@@ -107,7 +114,7 @@ export function SuggestReview({ current, suggestion, onAccept, onDismiss, disabl
           type="button"
           onClick={() => accept(FIELDS.filter((field) => selected[field]))}
           disabled={disabled || noneSelected}
-          className="rounded-md border border-violet-300 bg-white px-3 py-1.5 text-sm font-medium text-violet-800 hover:bg-violet-100 disabled:opacity-60"
+          className="btn btn-ai-outline"
         >
           {t('suggest.acceptSelected')}
         </button>
@@ -115,7 +122,7 @@ export function SuggestReview({ current, suggestion, onAccept, onDismiss, disabl
           type="button"
           onClick={() => accept(FIELDS)}
           disabled={disabled}
-          className="rounded-md bg-violet-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+          className="btn btn-ai"
         >
           {t('suggest.acceptAll')}
         </button>

@@ -14,7 +14,7 @@ export function ErrorMessage({ error, className }: ErrorMessageProps) {
     return null
   }
   return (
-    <p role="alert" className={`rounded-md bg-red-50 px-3 py-2 text-sm text-red-700 ${className ?? ''}`}>
+    <p role="alert" className={`alert-error ${className ?? ''}`}>
       {t(errorKey(error))}
     </p>
   )

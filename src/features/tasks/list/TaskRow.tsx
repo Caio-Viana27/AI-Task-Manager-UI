@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import type { Task } from '../../../api/tasks.ts'
 import { ComplexityBadge } from '../../../components/ComplexityBadge.tsx'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
+import { CalendarIcon, ChevronRightIcon, ListTreeIcon } from '../../../components/icons.tsx'
 import { PriorityBadge } from '../../../components/PriorityBadge.tsx'
 import { StatusBadge } from '../../../components/StatusBadge.tsx'
 import { formatDueDate } from './formatDueDate.ts'
@@ -23,34 +24,43 @@ export function TaskRow({ task }: TaskRowProps) {
   return (
     <li
       data-testid={`task-row-${task.id}`}
-      className={`flex flex-col gap-2 border-l-4 bg-white px-4 py-3 ${overdue ? 'border-red-500' : 'border-transparent'}`}
+      className={`group relative flex flex-col gap-2 px-4 py-3.5 transition-colors hover:bg-slate-50/80 sm:px-5 ${
+        overdue ? 'bg-red-50/40 shadow-[inset_3px_0_0_var(--color-red-500)]' : ''
+      }`}
     >
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         <input
           type="checkbox"
           checked={done}
           disabled={toggle.isPending}
           aria-label={t(done ? 'list.markNotDone' : 'list.markDone', { title: task.title })}
           onChange={(event) => toggle.mutate({ task, done: event.target.checked })}
-          className="h-4 w-4 rounded border-slate-300"
+          className="size-4.5 shrink-0 cursor-pointer rounded-full disabled:cursor-wait"
         />
         <Link
           to={`/tasks/${encodeURIComponent(task.id)}`}
-          className={`min-w-0 flex-1 truncate font-medium hover:underline ${done ? 'text-slate-500 line-through' : 'text-slate-900'}`}
+          className={`min-w-0 flex-1 truncate font-medium transition-colors hover:text-brand-700 ${done ? 'text-slate-400 line-through' : 'text-slate-900'}`}
         >
           {task.title}
         </Link>
         {task.parentTaskId && (
-          <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600">{t('list.subtask')}</span>
+          <span className="tag">
+            <ListTreeIcon className="size-3" />
+            {t('list.subtask')}
+          </span>
         )}
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge status={task.status} />
           <PriorityBadge priority={task.priority} />
           <ComplexityBadge complexity={task.complexity} />
-          <span className={`text-sm ${overdue ? 'font-medium text-red-700' : 'text-slate-600'}`}>
+          <span
+            className={`inline-flex min-w-28 items-center gap-1.5 text-xs ${overdue ? 'font-semibold text-red-700' : 'text-slate-500'}`}
+          >
+            <CalendarIcon className="size-3.5" />
             <span className="sr-only">{t('fields.dueDate')}: </span>
             {task.dueDate ? formatDueDate(task.dueDate, i18n.language) : t('list.noDueDate')}
           </span>
+          <ChevronRightIcon className="hidden size-4 text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-slate-400 sm:block" />
         </div>
       </div>
       <ErrorMessage error={toggle.error} />

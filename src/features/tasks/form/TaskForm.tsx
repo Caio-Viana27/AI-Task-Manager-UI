@@ -93,7 +93,7 @@ export function TaskForm({
     initialValues.status === 'OVERDUE' ? ['OVERDUE', ...USER_SETTABLE_STATUSES] : [...USER_SETTABLE_STATUSES]
 
   return (
-    <form noValidate aria-label={label} onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form noValidate aria-label={label} onSubmit={handleSubmit} className="flex flex-col gap-5">
       <AiSuggestSlot taskId={taskId} values={suggestValues} onApply={update} disabled={pending} />
       <FormField
         label={t('fields.title')}
@@ -169,13 +169,13 @@ export function TaskForm({
         )}
       </div>
       <ErrorMessage error={formError} />
-      <div className="flex flex-wrap justify-end gap-2">
+      <div className="flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
         {onCancel && (
           <button
             type="button"
             onClick={onCancel}
             disabled={pending}
-            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+            className="btn btn-secondary"
           >
             {t('form.cancel')}
           </button>
@@ -183,7 +183,7 @@ export function TaskForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+          className="btn btn-primary"
         >
           {pending ? pendingLabel : submitLabel}
         </button>

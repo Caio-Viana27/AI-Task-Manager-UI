@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useSuggestTask } from '../../api/ai.ts'
 import { ErrorMessage } from '../../components/ErrorMessage.tsx'
+import { SparklesIcon } from '../../components/icons.tsx'
 import { DESCRIPTION_MAX_LENGTH, TITLE_MAX_LENGTH, type TaskFormValues } from '../tasks/form/taskForm.ts'
 import { SuggestReview } from './suggest/SuggestReview.tsx'
 
@@ -35,17 +36,21 @@ export function AiSuggestSlot({ values, onApply, disabled }: AiSuggestSlotProps)
     title !== '' && title.length <= TITLE_MAX_LENGTH && description !== '' && description.length <= DESCRIPTION_MAX_LENGTH
 
   return (
-    <section aria-label={t('suggest.label')} className="flex flex-col gap-2">
-      <div className="flex flex-wrap items-center gap-2">
+    <section
+      aria-label={t('suggest.label')}
+      className="flex flex-col gap-3 rounded-xl border border-violet-100 bg-linear-to-r from-violet-50/80 to-brand-50/60 p-3"
+    >
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={() => suggest.mutate({ title, description })}
           disabled={!inputValid || disabled || suggest.isPending}
-          className="rounded-md border border-violet-300 px-3 py-1.5 text-sm font-medium text-violet-800 hover:bg-violet-50 disabled:opacity-60"
+          className="btn btn-ai-outline"
         >
+          <SparklesIcon className={`size-4 ${suggest.isPending ? 'animate-pulse' : ''}`} />
           {suggest.isPending ? t('suggest.loading') : t('suggest.button')}
         </button>
-        {!inputValid && <span className="text-xs text-slate-500">{t('suggest.hint')}</span>}
+        {!inputValid && <span className="text-xs text-violet-700/70">{t('suggest.hint')}</span>}
       </div>
       {suggest.isError && <ErrorMessage error={suggest.error} />}
       {suggest.isSuccess && (

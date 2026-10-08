@@ -1,5 +1,6 @@
 import { useEffect, useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { SearchIcon } from '../../../components/icons.tsx'
 import { useDebouncedValue } from '../../../hooks/useDebouncedValue.ts'
 import { MAX_SEARCH_LENGTH } from './dashboardParams.ts'
 
@@ -40,19 +41,22 @@ export function SearchInput({ value, onSearch }: SearchInputProps) {
   }, [debounced])
 
   return (
-    <div className="flex flex-col gap-1">
-      <label htmlFor={id} className="text-sm font-medium text-slate-700">
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className="field-label">
         {t('list.filters.search')}
       </label>
-      <input
-        id={id}
-        type="search"
-        value={text}
-        maxLength={MAX_SEARCH_LENGTH}
-        placeholder={t('list.filters.searchPlaceholder')}
-        onChange={(event) => setText(event.target.value)}
-        className="rounded-md border border-slate-300 px-3 py-2 text-sm"
-      />
+      <div className="relative">
+        <SearchIcon className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-slate-400" />
+        <input
+          id={id}
+          type="search"
+          value={text}
+          maxLength={MAX_SEARCH_LENGTH}
+          placeholder={t('list.filters.searchPlaceholder')}
+          onChange={(event) => setText(event.target.value)}
+          className="input pl-9"
+        />
+      </div>
     </div>
   )
 }

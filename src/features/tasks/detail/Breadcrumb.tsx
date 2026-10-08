@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import type { AncestorSummary } from '../../../api/tasks.ts'
+import { ChevronRightIcon } from '../../../components/icons.tsx'
 
 interface BreadcrumbProps {
   /** Root first, down to the direct parent (PLAN §2). */
@@ -15,13 +16,13 @@ export function Breadcrumb({ ancestors }: BreadcrumbProps) {
   }
   return (
     <nav aria-label={t('detail.breadcrumb')}>
-      <ol className="flex flex-wrap items-center gap-1 text-sm text-slate-600">
+      <ol className="flex flex-wrap items-center gap-1 text-sm text-slate-500">
         {ancestors.map((ancestor) => (
           <li key={ancestor.id} className="flex items-center gap-1">
-            <Link to={`/tasks/${encodeURIComponent(ancestor.id)}`} className="text-blue-600 hover:underline">
+            <Link to={`/tasks/${encodeURIComponent(ancestor.id)}`} className="max-w-56 truncate rounded px-1 font-medium hover:bg-slate-100 hover:text-brand-700">
               {ancestor.title}
             </Link>
-            <span aria-hidden="true">/</span>
+            <ChevronRightIcon className="size-3.5 text-slate-400" />
           </li>
         ))}
       </ol>

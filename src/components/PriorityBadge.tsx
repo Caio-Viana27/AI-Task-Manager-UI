@@ -3,9 +3,9 @@ import type { TaskPriority } from '../api/tasks.ts'
 import { Badge } from './Badge.tsx'
 
 const COLORS: Record<TaskPriority, string> = {
-  LOW: 'bg-slate-100 text-slate-700 ring-slate-300',
-  MEDIUM: 'bg-amber-50 text-amber-800 ring-amber-300',
-  HIGH: 'bg-red-50 text-red-700 ring-red-300',
+  LOW: 'bg-slate-50 text-slate-600 ring-slate-200',
+  MEDIUM: 'bg-amber-50 text-amber-800 ring-amber-200',
+  HIGH: 'bg-rose-50 text-rose-700 ring-rose-200',
 }
 
 interface PriorityBadgeProps {

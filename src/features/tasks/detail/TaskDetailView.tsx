@@ -5,6 +5,7 @@ import { useDeleteTask, usePatchTask } from '../../../api/queries/tasks.ts'
 import type { TaskDetail } from '../../../api/tasks.ts'
 import { ConfirmDialog } from '../../../components/ConfirmDialog.tsx'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
+import { PencilIcon, TrashIcon } from '../../../components/icons.tsx'
 import { TaskForm } from '../form/TaskForm.tsx'
 import { diffTaskForm, taskToFormValues, type TaskFormValues } from '../form/taskForm.ts'
 import { SubtaskSection } from '../subtasks/SubtaskSection.tsx'
@@ -55,17 +56,18 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+      <section className="card flex flex-col gap-5 p-6 sm:p-8">
         <Breadcrumb ancestors={task.ancestors} />
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <h1 className="min-w-0 break-words text-2xl font-semibold">{task.title}</h1>
+          <h1 className="min-w-0 text-2xl font-bold tracking-tight break-words text-slate-900 sm:text-3xl">{task.title}</h1>
           {!editing && (
             <div className="flex gap-2">
               <button
                 type="button"
                 onClick={startEditing}
-                className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                className="btn btn-secondary"
               >
+                <PencilIcon />
                 {t('detail.edit')}
               </button>
               <button
@@ -74,8 +76,9 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
                   deleteTask.reset()
                   setConfirmingDelete(true)
                 }}
-                className="rounded-md border border-red-300 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50"
+                className="btn btn-danger-outline"
               >
+                <TrashIcon />
                 {t('detail.delete')}
               </button>
             </div>

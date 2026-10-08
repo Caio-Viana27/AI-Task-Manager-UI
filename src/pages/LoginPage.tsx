@@ -45,16 +45,16 @@ export function LoginPage() {
   return (
     <AuthCard title={t('login.title')}>
       {expired && !mutation.isError && (
-        <p role="status" className="mt-4 rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-800">
+        <p role="status" className="alert-warning mt-6">
           {t('errors:UNAUTHORIZED')}
         </p>
       )}
       {mutation.isError && (
-        <p role="alert" className="mt-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p role="alert" className="alert-error mt-6">
           {t(`errors:${errorKey(mutation.error)}`)}
         </p>
       )}
-      <form noValidate onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
+      <form noValidate onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <FormField
           label={t('fields.email')}
           type="email"
@@ -77,18 +77,18 @@ export function LoginPage() {
         <button
           type="submit"
           disabled={mutation.isPending}
-          className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+          className="btn btn-primary mt-2 w-full py-2.5"
         >
           {mutation.isPending ? t('login.submitting') : t('login.submit')}
         </button>
       </form>
-      <div className="mt-4 flex flex-col gap-2 text-sm">
-        <Link to="/forgot-password" className="text-blue-600 hover:underline">
+      <div className="mt-6 flex flex-col items-center gap-3 border-t border-slate-100 pt-6 text-sm">
+        <Link to="/forgot-password" className="link">
           {t('login.forgotPassword')}
         </Link>
         <p className="text-slate-600">
           {t('login.noAccount')}{' '}
-          <Link to="/signup" className="text-blue-600 hover:underline">
+          <Link to="/signup" className="link">
             {t('login.signupLink')}
           </Link>
         </p>

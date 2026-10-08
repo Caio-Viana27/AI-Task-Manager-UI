@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useCreateSubtasks } from '../../../api/queries/tasks.ts'
+import { PlusIcon } from '../../../components/icons.tsx'
 import { TaskForm } from '../form/TaskForm.tsx'
 import { EMPTY_TASK_FORM_VALUES, toCreateRequest } from '../form/taskForm.ts'
 
@@ -28,15 +29,16 @@ export function AddSubtaskForm({ parentId }: AddSubtaskFormProps) {
             createSubtasks.reset()
             setOpen(true)
           }}
-          className="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          className="btn btn-secondary"
         >
+          <PlusIcon />
           {t('subtasks.add')}
         </button>
       </div>
     )
   }
   return (
-    <div className="rounded-md border border-slate-200 p-4">
+    <div className="animate-fade-in rounded-xl border border-slate-200 bg-slate-50/60 p-5">
       <TaskForm
         key={formKey}
         mode="create"

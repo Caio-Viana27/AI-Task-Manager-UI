@@ -4,6 +4,7 @@ import type { SubtaskDraft } from '../../../api/aiBreakdown.ts'
 import { useCreateSubtasks } from '../../../api/queries/tasks.ts'
 import { TASK_COMPLEXITIES, TASK_PRIORITIES, type TaskComplexity, type TaskPriority } from '../../../api/tasks.ts'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
+import { ChevronDownIcon, ChevronUpIcon, SparklesIcon, TrashIcon } from '../../../components/icons.tsx'
 import { FormField } from '../../../components/FormField.tsx'
 import { SelectField, TextAreaField } from '../../tasks/form/fields.tsx'
 import { validateTaskForm, type TaskFormErrors } from '../../tasks/form/taskForm.ts'
@@ -72,8 +73,11 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
   const pending = createSubtasks.isPending
 
   return (
-    <div role="group" aria-label={t('reviewTitle')} className="flex flex-col gap-3 rounded-md border border-violet-200 bg-violet-50 p-3">
-      <h3 className="text-sm font-semibold text-violet-900">{t('reviewTitle')}</h3>
+    <div role="group" aria-label={t('reviewTitle')} className="flex animate-fade-in flex-col gap-4 rounded-xl border border-violet-200 bg-linear-to-b from-violet-50 to-brand-50/40 p-4">
+      <h3 className="flex items-center gap-2 text-sm font-semibold text-violet-900">
+        <SparklesIcon className="size-4 text-violet-600" />
+        {t('reviewTitle')}
+      </h3>
       {drafts.length === 0 ? (
         <p className="text-sm text-slate-600">{t('noDrafts')}</p>
       ) : (
@@ -82,7 +86,13 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
             const number = index + 1
             return (
               // Drafts have no id; the index is their identity, and every field is controlled.
-              <li key={index} aria-label={t('draftLabel', { number })} className="flex flex-col gap-3 rounded-md bg-white p-3">
+              <li key={index} aria-label={t('draftLabel', { number })} className="relative flex flex-col gap-3 rounded-xl bg-white p-4 pl-12 shadow-card ring-1 ring-violet-100">
+                <span
+                  aria-hidden="true"
+                  className="absolute top-4 left-4 flex size-6 items-center justify-center rounded-full bg-violet-100 text-xs font-semibold text-violet-700"
+                >
+                  {number}
+                </span>
                 <FormField
                   label={t('tasks:fields.title')}
                   type="text"
@@ -127,8 +137,9 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
                     onClick={() => move(index, -1)}
                     disabled={index === 0 || pending}
                     aria-label={t('moveUp', { number })}
-                    className="rounded-md border border-slate-300 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                    className="btn btn-sm btn-secondary"
                   >
+                    <ChevronUpIcon className="size-3.5" />
                     {t('up')}
                   </button>
                   <button
@@ -136,8 +147,9 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
                     onClick={() => move(index, 1)}
                     disabled={index === drafts.length - 1 || pending}
                     aria-label={t('moveDown', { number })}
-                    className="rounded-md border border-slate-300 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                    className="btn btn-sm btn-secondary"
                   >
+                    <ChevronDownIcon className="size-3.5" />
                     {t('down')}
                   </button>
                   <button
@@ -145,8 +157,9 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
                     onClick={() => remove(index)}
                     disabled={pending}
                     aria-label={t('remove', { number })}
-                    className="rounded-md border border-red-200 px-2 py-1 text-xs text-red-700 hover:bg-red-50 disabled:opacity-50"
+                    className="btn btn-sm btn-danger-outline"
                   >
+                    <TrashIcon className="size-3.5" />
                     {t('removeShort')}
                   </button>
                 </div>
@@ -161,7 +174,7 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
           type="button"
           onClick={onClose}
           disabled={pending}
-          className="rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-60"
+          className="btn btn-secondary"
         >
           {t('discard')}
         </button>
@@ -169,7 +182,7 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
           type="button"
           onClick={create}
           disabled={!valid || pending}
-          className="rounded-md bg-violet-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-violet-700 disabled:opacity-60"
+          className="btn btn-ai"
         >
           {pending ? t('creating') : t('create', { count: drafts.length })}
         </button>
