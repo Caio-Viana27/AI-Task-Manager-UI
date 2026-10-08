@@ -5,7 +5,7 @@ import { useAuth } from '../auth/useAuth.ts'
 import { LanguageSwitcher } from '../components/LanguageSwitcher.tsx'
 
 interface AppLayoutProps {
-  /** Slot for the chat assistant panel (Wave 4). Empty until then. */
+  /** Slot for the chat assistant panel; the protected routes pass `ChatPanel` (wave 4, D7). */
   chatPanel?: ReactNode
 }
 

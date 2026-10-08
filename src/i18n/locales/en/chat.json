@@ -1,0 +1,22 @@
+{
+  "panel": {
+    "title": "Assistant",
+    "open": "Open the assistant",
+    "close": "Close the assistant",
+    "intro": "Ask about your tasks. The assistant can read them but can't change them.",
+    "messages": "Conversation",
+    "you": "You",
+    "assistant": "Assistant",
+    "typing": "The assistant is typing…",
+    "inputLabel": "Your question",
+    "placeholder": "Ask about your tasks…",
+    "send": "Send",
+    "clear": "Clear chat"
+  },
+  "examples": {
+    "title": "Try asking:",
+    "overdue": "Do I have overdue tasks?",
+    "first": "What should I do first?",
+    "week": "What is due this week?"
+  }
+}

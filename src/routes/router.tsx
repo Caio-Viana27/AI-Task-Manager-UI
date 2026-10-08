@@ -1,5 +1,6 @@
 import { createBrowserRouter, Outlet, type RouteObject } from 'react-router'
 import { AuthProvider } from '../auth/AuthProvider.tsx'
+import { ChatPanel } from '../features/chat/ChatPanel.tsx'
 import { AppLayout } from '../layouts/AppLayout.tsx'
 import { DashboardPage } from '../pages/DashboardPage.tsx'
 import { ForgotPasswordPage } from '../pages/ForgotPasswordPage.tsx'
@@ -49,7 +50,7 @@ export const routes: RouteObject[] = [
       {
         element: (
           <ProtectedRoute>
-            <AppLayout />
+            <AppLayout chatPanel={<ChatPanel />} />
           </ProtectedRoute>
         ),
         children: [
