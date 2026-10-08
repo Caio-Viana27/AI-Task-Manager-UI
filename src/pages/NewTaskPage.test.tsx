@@ -44,6 +44,7 @@ describe('NewTaskPage', () => {
     fireEvent.change(newTask.getByLabelText('Due date'), { target: { value: '2026-10-31' } })
     await user.selectOptions(newTask.getByLabelText('Priority'), 'High')
     await user.selectOptions(newTask.getByLabelText('Complexity'), 'Hard')
+    await user.type(newTask.getByLabelText('Estimated hours'), '12')
     // New tasks start as TODO; there is no status control.
     expect(newTask.queryByLabelText('Status')).toBeNull()
     await user.click(newTask.getByRole('button', { name: 'Create task' }))
@@ -51,7 +52,7 @@ describe('NewTaskPage', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'Write report' })).toBeDefined()
     expect(router.state.location.pathname).toBe('/tasks/new-id')
     expect(posts().map(({ body }) => body)).toEqual([
-      { title: 'Write report', description: 'Quarterly numbers', priority: 'HIGH', dueDate: '2026-10-31', complexity: 'HARD' },
+      { title: 'Write report', description: 'Quarterly numbers', priority: 'HIGH', dueDate: '2026-10-31', complexity: 'HARD', estimatedHours: 12 },
     ])
   })
 

@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { useAnalyzeTask } from '../../../api/aiAnalysis.ts'
 import { useDeleteTask, usePatchTask } from '../../../api/queries/tasks.ts'
 import type { TaskDetail } from '../../../api/tasks.ts'
 import { ConfirmDialog } from '../../../components/ConfirmDialog.tsx'
 import { Accent } from '../../../components/Accent.tsx'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
 import { PencilIcon, TrashIcon } from '../../../components/icons.tsx'
+import { AnalysisReview, type AnalysisFields } from '../../ai/analysis/AnalysisReview.tsx'
+import { AnalyzeButton } from '../../ai/analysis/AnalyzeButton.tsx'
 import { TaskForm } from '../form/TaskForm.tsx'
 import { diffTaskForm, taskToFormValues, type TaskFormValues } from '../form/taskForm.ts'
 import { SubtaskSection } from '../subtasks/SubtaskSection.tsx'
@@ -26,22 +29,27 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
   const navigate = useNavigate()
   const patchTask = usePatchTask()
   const deleteTask = useDeleteTask()
-  const [editing, setEditing] = useState(false)
+  const analyze = useAnalyzeTask()
+  // The values the edit form opens with, or null when not editing. "Apply to form" merges the
+  // checked analysis fields into the task's values (wave 4, D14).
+  const [editValues, setEditValues] = useState<TaskFormValues | null>(null)
+  const editing = editValues !== null
   const [confirmingDelete, setConfirmingDelete] = useState(false)
 
-  function startEditing() {
+  function startEditing(changes: Partial<AnalysisFields> = {}) {
     patchTask.reset()
-    setEditing(true)
+    analyze.reset()
+    setEditValues({ ...taskToFormValues(task), ...changes })
   }
 
   function save(values: TaskFormValues) {
     // Only the changed fields, so an OVERDUE task is saved without its status (D6).
     const patch = diffTaskForm(task, values)
     if (Object.keys(patch).length === 0) {
-      setEditing(false)
+      setEditValues(null)
       return
     }
-    patchTask.mutate({ id: task.id, patch }, { onSuccess: () => setEditing(false) })
+    patchTask.mutate({ id: task.id, patch }, { onSuccess: () => setEditValues(null) })
   }
 
   function confirmDelete() {
@@ -73,11 +81,12 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
           </h1>
         </div>
         {!editing && (
-          <div className="flex gap-2">
-            <button type="button" onClick={startEditing} className="btn btn-secondary">
+          <div className="flex flex-wrap gap-2">
+            <button type="button" onClick={() => startEditing()} className="btn btn-secondary">
               <PencilIcon />
               {t('detail.edit')}
             </button>
+            <AnalyzeButton pending={analyze.isPending} onClick={() => analyze.mutate(task.id)} />
             <button
               type="button"
               onClick={() => {
@@ -92,19 +101,30 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
           </div>
         )}
       </header>
+      {!editing && analyze.isError && <ErrorMessage error={analyze.error} />}
+      {!editing && analyze.isSuccess && (
+        <AnalysisReview
+          // A new analysis starts with every field checked again.
+          key={analyze.submittedAt}
+          task={task}
+          analysis={analyze.data}
+          onApply={(changes) => startEditing(changes)}
+          onDismiss={() => analyze.reset()}
+        />
+      )}
       <section className="card p-6 sm:p-8">
-        {editing ? (
+        {editValues !== null ? (
           <TaskForm
             mode="edit"
             label={t('form.editLabel')}
-            initialValues={taskToFormValues(task)}
+            initialValues={editValues}
             taskId={task.id}
             submitLabel={t('form.save')}
             pendingLabel={t('form.saving')}
             pending={patchTask.isPending}
             error={patchTask.error}
             onSubmit={save}
-            onCancel={() => setEditing(false)}
+            onCancel={() => setEditValues(null)}
           />
         ) : (
           <TaskFields task={task} />

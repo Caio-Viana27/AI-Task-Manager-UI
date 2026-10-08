@@ -15,6 +15,7 @@ function task(id: string, overrides: Partial<Task> = {}): Task {
     priority: 'MEDIUM',
     status: 'TODO',
     complexity: null,
+    estimatedHours: null,
     parentTaskId: null,
     createdAt: '2026-10-07T12:00:00Z',
     updatedAt: '2026-10-07T12:00:00Z',

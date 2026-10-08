@@ -13,10 +13,14 @@ import { isIsoDate } from '../list/dashboardParams.ts'
 /** Limits from PLAN §2 (Validation and defaults), mirroring the API. */
 export const TITLE_MAX_LENGTH = 100
 export const DESCRIPTION_MAX_LENGTH = 500
+/** Estimated hours are a whole number in this range (wave 4, D10). */
+export const ESTIMATED_HOURS_MIN = 1
+export const ESTIMATED_HOURS_MAX = 999
 
 /**
  * What the task form edits. Every value is a string the form controls can hold:
- * `dueDate` is `YYYY-MM-DD` or `''` (none), `complexity` is a name or `''` (not estimated).
+ * `dueDate` is `YYYY-MM-DD` or `''` (none), `complexity` is a name or `''` (not estimated),
+ * `estimatedHours` is what the number input holds, or `''` (not estimated).
  * `status` is only edited in edit mode; it can hold `OVERDUE` as the task's current status (D6).
  */
 export interface TaskFormValues {
@@ -26,6 +30,7 @@ export interface TaskFormValues {
   priority: TaskPriority
   status: TaskStatus
   complexity: TaskComplexity | ''
+  estimatedHours: string
 }
 
 export type TaskFormField = keyof TaskFormValues
@@ -34,7 +39,7 @@ export type TaskFormField = keyof TaskFormValues
 export type TaskFormMessageKey = ParseKeys<['tasks', 'errors']>
 export type TaskFormErrors = Partial<Record<TaskFormField, TaskFormMessageKey>>
 
-const TASK_FORM_FIELDS: readonly TaskFormField[] = ['title', 'description', 'dueDate', 'priority', 'status', 'complexity']
+const TASK_FORM_FIELDS: readonly TaskFormField[] = ['title', 'description', 'dueDate', 'priority', 'status', 'complexity', 'estimatedHours']
 
 /** The create form's starting values: the PLAN §2 defaults. */
 export const EMPTY_TASK_FORM_VALUES: TaskFormValues = {
@@ -44,6 +49,7 @@ export const EMPTY_TASK_FORM_VALUES: TaskFormValues = {
   priority: 'MEDIUM',
   status: 'TODO',
   complexity: '',
+  estimatedHours: '',
 }
 
 export function taskToFormValues(task: Task): TaskFormValues {
@@ -54,6 +60,7 @@ export function taskToFormValues(task: Task): TaskFormValues {
     priority: task.priority,
     status: task.status,
     complexity: task.complexity ?? '',
+    estimatedHours: task.estimatedHours === null ? '' : String(task.estimatedHours),
   }
 }
 
@@ -79,12 +86,27 @@ export function validateTaskForm(values: TaskFormValues): TaskFormErrors {
     errors.dueDate = 'form.validation.dueDateInvalid'
   }
 
+  if (values.estimatedHours.trim() !== '' && parseEstimatedHours(values.estimatedHours) === null) {
+    errors.estimatedHours = 'form.validation.estimatedHoursInvalid'
+  }
+
   return errors
+}
+
+/** The hours as a number, or `null` when the text is empty or not a whole number from 1 to 999. */
+export function parseEstimatedHours(text: string): number | null {
+  const trimmed = text.trim()
+  if (!/^\d+$/.test(trimmed)) {
+    return null
+  }
+  const hours = Number(trimmed)
+  return hours >= ESTIMATED_HOURS_MIN && hours <= ESTIMATED_HOURS_MAX ? hours : null
 }
 
 /**
  * The body of `POST /tasks` (or one `POST /tasks/{id}/subtasks` item). Title and description
- * are trimmed; an empty due date or complexity is left out, so the API default (`null`) applies.
+ * are trimmed; an empty due date, complexity or estimate is left out, so the API default (`null`)
+ * applies. The subtask forms never fill in hours, so subtask items never carry them (D10).
  */
 export function toCreateRequest(values: TaskFormValues): CreateTaskRequest {
   return {
@@ -93,12 +115,13 @@ export function toCreateRequest(values: TaskFormValues): CreateTaskRequest {
     priority: values.priority,
     ...(values.dueDate !== '' && { dueDate: values.dueDate }),
     ...(values.complexity !== '' && { complexity: values.complexity }),
+    ...(values.estimatedHours.trim() !== '' && { estimatedHours: parseEstimatedHours(values.estimatedHours) }),
   }
 }
 
 /**
  * The `PATCH` body for an edit (D2, D6): only the fields that differ from `task`. A cleared
- * due date or complexity is sent as `null`. `status` is sent only when the user picked a
+ * due date, complexity or estimate is sent as `null`. `status` is sent only when the user picked a
  * different one, so an `OVERDUE` task saves without it. An empty object means nothing changed.
  */
 export function diffTaskForm(task: Task, values: TaskFormValues): PatchTaskRequest {
@@ -107,6 +130,7 @@ export function diffTaskForm(task: Task, values: TaskFormValues): PatchTaskReque
   const description = values.description.trim()
   const dueDate = values.dueDate === '' ? null : values.dueDate
   const complexity = values.complexity === '' ? null : values.complexity
+  const estimatedHours = parseEstimatedHours(values.estimatedHours)
 
   if (title !== task.title) {
     patch.title = title
@@ -125,6 +149,9 @@ export function diffTaskForm(task: Task, values: TaskFormValues): PatchTaskReque
   }
   if (complexity !== task.complexity) {
     patch.complexity = complexity
+  }
+  if (estimatedHours !== task.estimatedHours) {
+    patch.estimatedHours = estimatedHours
   }
   return patch
 }

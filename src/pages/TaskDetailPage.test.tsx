@@ -196,6 +196,55 @@ describe('TaskDetailPage', () => {
       expect(screen.queryByRole('form', { name: 'Edit task' })).toBeNull()
     })
 
+    it('rejects hours 0, 1000 and 2.5 without calling the API', async () => {
+      const user = userEvent.setup()
+      const { writes } = stubApi([taskDetail('t1', { estimatedHours: 5 })])
+      renderTask('t1')
+
+      await user.click(await screen.findByRole('button', { name: 'Edit' }))
+      const form = within(screen.getByRole('form', { name: 'Edit task' }))
+      const hours = form.getByLabelText('Estimated hours')
+      expect(hours).toHaveProperty('value', '5')
+      for (const value of ['0', '1000', '2.5']) {
+        await user.clear(hours)
+        await user.type(hours, value)
+        await user.click(form.getByRole('button', { name: 'Save changes' }))
+        expect(form.getByText('Enter a whole number of hours from 1 to 999.')).toBeDefined()
+        expect(hours.getAttribute('aria-invalid')).toBe('true')
+      }
+      expect(writes()).toEqual([])
+    })
+
+    it('sends estimatedHours: null when the hours are cleared, and shows "Not estimated"', async () => {
+      const user = userEvent.setup()
+      const { writes } = stubApi([taskDetail('t1', { title: 'Write report', estimatedHours: 5 })])
+      renderTask('t1')
+
+      await heading('Write report')
+      const fields = within(screen.getByRole('main'))
+      expect(fields.getByText('5 hours')).toBeDefined()
+      await user.click(screen.getByRole('button', { name: 'Edit' }))
+      const form = within(screen.getByRole('form', { name: 'Edit task' }))
+      await user.clear(form.getByLabelText('Estimated hours'))
+      await user.click(form.getByRole('button', { name: 'Save changes' }))
+
+      await waitFor(() => expect(screen.queryByRole('form', { name: 'Edit task' })).toBeNull())
+      expect(writes()).toEqual([{ method: 'PATCH', path: '/v1/tasks/t1', body: { estimatedHours: null } }])
+      // Complexity is also "Not estimated" here, so expect both.
+      expect(fields.getAllByText('Not estimated')).toHaveLength(2)
+      expect(fields.queryByText('5 hours')).toBeNull()
+    })
+
+    it('shows the hours in PT-BR', async () => {
+      await i18n.changeLanguage('pt-BR')
+      stubApi([taskDetail('t1', { title: 'Write report', estimatedHours: 1, complexity: 'EASY' })])
+      renderTask('t1')
+
+      await heading('Write report')
+      expect(within(screen.getByRole('main')).getByText('1 hora')).toBeDefined()
+      expect(within(screen.getByRole('main')).getByText('Horas estimadas')).toBeDefined()
+    })
+
     it('saves an OVERDUE task without sending its status', async () => {
       const user = userEvent.setup()
       const { writes } = stubApi([LEAF])
@@ -260,6 +309,8 @@ describe('TaskDetailPage', () => {
       const section = within(screen.getByRole('region', { name: 'Subtasks' }))
       await user.click(section.getByRole('button', { name: 'Add a subtask' }))
       const form = within(section.getByRole('form', { name: 'New subtask' }))
+      // Subtask create takes no estimate (wave 4, D10).
+      expect(form.queryByLabelText('Estimated hours')).toBeNull()
       await user.type(form.getByLabelText('Title'), 'About page')
       await user.type(form.getByLabelText('Description'), 'Team bios')
       await user.click(form.getByRole('button', { name: 'Add subtask' }))

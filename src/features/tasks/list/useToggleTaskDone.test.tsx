@@ -17,6 +17,7 @@ function task(id: string, parentTaskId: string | null, status: Task['status'] = 
     priority: 'MEDIUM',
     status,
     complexity: null,
+    estimatedHours: null,
     parentTaskId,
     createdAt: '2026-10-07T12:00:00Z',
     updatedAt: '2026-10-07T12:00:00Z',

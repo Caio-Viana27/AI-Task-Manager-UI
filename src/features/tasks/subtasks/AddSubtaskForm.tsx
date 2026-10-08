@@ -44,6 +44,8 @@ export function AddSubtaskForm({ parentId }: AddSubtaskFormProps) {
         mode="create"
         label={t('subtasks.formLabel')}
         initialValues={EMPTY_TASK_FORM_VALUES}
+        // Subtask create takes no estimate (wave 4, D10).
+        showEstimatedHours={false}
         submitLabel={t('subtasks.create')}
         pendingLabel={t('subtasks.creating')}
         pending={createSubtasks.isPending}

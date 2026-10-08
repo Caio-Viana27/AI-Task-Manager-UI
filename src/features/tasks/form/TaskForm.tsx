@@ -14,6 +14,8 @@ import { AiSuggestSlot, type AiSuggestFields } from '../../ai/AiSuggestSlot.tsx'
 import { isIsoDate } from '../list/dashboardParams.ts'
 import { SelectField, TextAreaField } from './fields.tsx'
 import {
+  ESTIMATED_HOURS_MAX,
+  ESTIMATED_HOURS_MIN,
   fieldErrorsFromApi,
   validateTaskForm,
   type TaskFormErrors,
@@ -39,6 +41,8 @@ export interface TaskFormProps {
   /** Called with the raw values once they pass client-side validation. */
   onSubmit: (values: TaskFormValues) => void
   onCancel?: () => void
+  /** Shows the estimated hours input (default). The add-subtask form hides it: subtask create takes no estimate (D10). */
+  showEstimatedHours?: boolean
 }
 
 /** The task form for create, edit and add-subtask (PLAN §2 validation, D6 status control). */
@@ -53,6 +57,7 @@ export function TaskForm({
   error,
   onSubmit,
   onCancel,
+  showEstimatedHours = true,
 }: TaskFormProps) {
   const { t } = useTranslation(['tasks', 'errors'])
   const [values, setValues] = useState(initialValues)
@@ -151,6 +156,21 @@ export function TaskForm({
             </option>
           ))}
         </SelectField>
+        {showEstimatedHours && (
+          <FormField
+            label={t('fields.estimatedHours')}
+            type="number"
+            name="estimatedHours"
+            inputMode="numeric"
+            min={ESTIMATED_HOURS_MIN}
+            max={ESTIMATED_HOURS_MAX}
+            step={1}
+            value={values.estimatedHours}
+            hint={t('form.estimatedHoursHint')}
+            onChange={(event) => update({ estimatedHours: event.target.value })}
+            error={errorText('estimatedHours')}
+          />
+        )}
         {mode === 'edit' && (
           <SelectField
             label={t('fields.status')}
