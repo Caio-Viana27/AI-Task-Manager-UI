@@ -38,7 +38,7 @@ export function TaskFields({ task }: TaskFieldsProps) {
       <Field label={t('fields.description')}>
         <p className="leading-relaxed whitespace-pre-wrap text-stone-700">{task.description}</p>
       </Field>
-      <div className="grid gap-4 rounded-lg bg-sage-50 p-4 ring-1 ring-sage-100 sm:grid-cols-4">
+      <div className="grid gap-4 rounded-lg bg-sage-50 p-4 ring-1 ring-sage-100 sm:grid-cols-3 lg:grid-cols-5">
         <Field label={t('fields.status')}>
           <StatusBadge status={task.status} />
         </Field>
@@ -52,6 +52,11 @@ export function TaskFields({ task }: TaskFieldsProps) {
           <span className={overdue ? 'font-medium text-red-700' : undefined}>
             {task.dueDate ? formatDueDate(task.dueDate, i18n.language) : t('detail.noDueDate')}
           </span>
+        </Field>
+        <Field label={t('fields.estimatedHours')}>
+          {task.estimatedHours === null
+            ? t('detail.notEstimated')
+            : t('detail.estimatedHours', { count: task.estimatedHours })}
         </Field>
       </div>
       <div className="grid gap-4 text-stone-500 sm:grid-cols-4 [&_dd]:text-stone-500">

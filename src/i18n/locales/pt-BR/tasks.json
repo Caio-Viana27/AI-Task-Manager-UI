@@ -5,7 +5,8 @@
     "dueDate": "Data de entrega",
     "priority": "Prioridade",
     "status": "Status",
-    "complexity": "Complexidade"
+    "complexity": "Complexidade",
+    "estimatedHours": "Horas estimadas"
   },
   "priority": {
     "LOW": "Baixa",
@@ -108,8 +109,10 @@
       "dueDateInvalid": "Informe uma data válida.",
       "priorityInvalid": "Escolha uma prioridade válida.",
       "statusInvalid": "Escolha um status válido.",
-      "complexityInvalid": "Escolha uma complexidade válida."
-    }
+      "complexityInvalid": "Escolha uma complexidade válida.",
+      "estimatedHoursInvalid": "Informe um número inteiro de horas de 1 a 999."
+    },
+    "estimatedHoursHint": "Opcional. Um número inteiro de 1 a 999."
   },
   "detail": {
     "loading": "Carregando tarefa…",
@@ -131,7 +134,10 @@
       "confirm": "Excluir",
       "deleting": "Excluindo…"
     },
-    "eyebrow": "Detalhes da tarefa"
+    "eyebrow": "Detalhes da tarefa",
+    "estimatedHours_one": "{{count}} hora",
+    "estimatedHours_other": "{{count}} horas",
+    "notEstimated": "Sem estimativa"
   },
   "subtasks": {
     "title": "Subtarefas",

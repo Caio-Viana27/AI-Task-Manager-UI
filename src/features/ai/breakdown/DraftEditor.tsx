@@ -19,7 +19,7 @@ interface DraftEditorProps {
 
 /** The task limits (PLAN §2), checked with the task form's own rules. */
 function validateDraft(draft: SubtaskDraft): TaskFormErrors {
-  return validateTaskForm({ ...draft, dueDate: '', status: 'TODO' })
+  return validateTaskForm({ ...draft, dueDate: '', status: 'TODO', estimatedHours: '' })
 }
 
 /**

@@ -10,6 +10,7 @@ export function taskDetail(id: string, overrides: Partial<TaskDetail> = {}): Tas
     priority: 'MEDIUM',
     status: 'TODO',
     complexity: null,
+    estimatedHours: null,
     parentTaskId: null,
     ancestors: [],
     canAddSubtasks: true,

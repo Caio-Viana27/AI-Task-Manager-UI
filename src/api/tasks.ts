@@ -45,6 +45,8 @@ export interface Task {
   priority: TaskPriority
   status: TaskStatus
   complexity: TaskComplexity | null
+  /** Estimated effort in whole hours, 1–999, or `null` when not estimated (wave 4, D10). */
+  estimatedHours: number | null
   parentTaskId: string | null
   ancestors?: AncestorSummary[]
   canAddSubtasks?: boolean
@@ -99,13 +101,17 @@ export interface Lookups {
   complexities: TaskComplexity[]
 }
 
-/** Body of `POST /tasks`, and one item of `POST /tasks/{id}/subtasks` (PLAN §4). */
+/**
+ * Body of `POST /tasks`, and one item of `POST /tasks/{id}/subtasks` (PLAN §4).
+ * `estimatedHours` is accepted only by `POST /tasks`, never on subtask create (wave 4, D10).
+ */
 export interface CreateTaskRequest {
   title: string
   description: string
   dueDate?: IsoDate | null
   priority?: TaskPriority
   complexity?: TaskComplexity | null
+  estimatedHours?: number | null
 }
 
 /** Body of `PUT /tasks/{id}`: every editable field. */
@@ -116,11 +122,12 @@ export interface UpdateTaskRequest {
   priority: TaskPriority
   status: UserSettableStatus
   complexity: TaskComplexity | null
+  estimatedHours?: number | null
 }
 
 /**
  * Body of `PATCH /tasks/{id}` (D2). A field left `undefined` isn't sent and stays unchanged;
- * `null` is sent and clears it, which only `dueDate` and `complexity` accept.
+ * `null` is sent and clears it, which only `dueDate`, `complexity` and `estimatedHours` accept.
  */
 export interface PatchTaskRequest {
   title?: string
@@ -129,6 +136,7 @@ export interface PatchTaskRequest {
   priority?: TaskPriority
   status?: UserSettableStatus
   complexity?: TaskComplexity | null
+  estimatedHours?: number | null
 }
 
 /**

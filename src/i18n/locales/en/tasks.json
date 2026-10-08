@@ -5,7 +5,8 @@
     "dueDate": "Due date",
     "priority": "Priority",
     "status": "Status",
-    "complexity": "Complexity"
+    "complexity": "Complexity",
+    "estimatedHours": "Estimated hours"
   },
   "priority": {
     "LOW": "Low",
@@ -108,8 +109,10 @@
       "dueDateInvalid": "Enter a valid date.",
       "priorityInvalid": "Pick a valid priority.",
       "statusInvalid": "Pick a valid status.",
-      "complexityInvalid": "Pick a valid complexity."
-    }
+      "complexityInvalid": "Pick a valid complexity.",
+      "estimatedHoursInvalid": "Enter a whole number of hours from 1 to 999."
+    },
+    "estimatedHoursHint": "Optional. A whole number from 1 to 999."
   },
   "detail": {
     "loading": "Loading task…",
@@ -131,7 +134,10 @@
       "confirm": "Delete",
       "deleting": "Deleting…"
     },
-    "eyebrow": "Task details"
+    "eyebrow": "Task details",
+    "estimatedHours_one": "{{count}} hour",
+    "estimatedHours_other": "{{count}} hours",
+    "notEstimated": "Not estimated"
   },
   "subtasks": {
     "title": "Subtasks",

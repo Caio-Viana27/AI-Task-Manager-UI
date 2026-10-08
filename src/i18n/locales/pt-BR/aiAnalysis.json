@@ -1,0 +1,13 @@
+{
+  "button": "Analisar com IA",
+  "loading": "Analisando…",
+  "reviewTitle": "Análise da IA",
+  "current": "Atual",
+  "suggested": "Sugerido",
+  "usePriority": "Usar a prioridade sugerida",
+  "useComplexity": "Usar a complexidade sugerida",
+  "useEstimatedHours": "Usar a estimativa sugerida",
+  "reason": "Por quê",
+  "apply": "Aplicar ao formulário",
+  "dismiss": "Descartar"
+}

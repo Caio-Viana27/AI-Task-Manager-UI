@@ -1,0 +1,13 @@
+{
+  "button": "Analyze with AI",
+  "loading": "Analyzing…",
+  "reviewTitle": "AI analysis",
+  "current": "Current",
+  "suggested": "Suggested",
+  "usePriority": "Use the suggested priority",
+  "useComplexity": "Use the suggested complexity",
+  "useEstimatedHours": "Use the suggested estimate",
+  "reason": "Why",
+  "apply": "Apply to form",
+  "dismiss": "Dismiss"
+}
