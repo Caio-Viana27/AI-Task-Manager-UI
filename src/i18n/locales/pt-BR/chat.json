@@ -3,7 +3,6 @@
     "title": "Assistente",
     "open": "Abrir o assistente",
     "close": "Fechar o assistente",
-    "intro": "Pergunte sobre suas tarefas. O assistente pode lê-las, mas não pode alterá-las.",
     "messages": "Conversa",
     "you": "Você",
     "assistant": "Assistente",
@@ -12,12 +11,28 @@
     "placeholder": "Pergunte sobre suas tarefas…",
     "send": "Enviar",
     "clear": "Limpar conversa",
-    "hide": "Ocultar o assistente"
+    "hide": "Ocultar o assistente",
+    "heading": "Seu assistente",
+    "subtitle": "Um pouco de clareza extra",
+    "readOnly": "Somente leitura: não altera suas tarefas"
   },
   "examples": {
-    "title": "Experimente perguntar:",
+    "title": "O que vamos organizar?",
     "overdue": "Tenho tarefas atrasadas?",
     "first": "O que devo fazer primeiro?",
     "week": "O que vence esta semana?"
+  },
+  "empty": {
+    "eyebrow": "Vamos por partes",
+    "title": "Um dia mais leve começa por aqui",
+    "openCount_one": "Você tem <strong>{{count}} tarefa em aberto</strong>. Que tal começar com um pequeno passo?",
+    "openCount_other": "Você tem <strong>{{count}} tarefas em aberto</strong>. Que tal começar com um pequeno passo?",
+    "noOpen": "Você não tem tarefas em aberto. Pergunte o que quiser sobre seus planos.",
+    "tip": "Comece pelo que está ao seu alcance. Cada tarefa concluída é espaço para algo novo."
+  },
+  "nextStep": {
+    "label": "Seu próximo passo",
+    "priority": "Prioridade {{priority}}",
+    "view": "Ver tarefa"
   }
 }

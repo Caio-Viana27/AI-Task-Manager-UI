@@ -3,7 +3,6 @@
     "title": "Assistant",
     "open": "Open the assistant",
     "close": "Close the assistant",
-    "intro": "Ask about your tasks. The assistant can read them but can't change them.",
     "messages": "Conversation",
     "you": "You",
     "assistant": "Assistant",
@@ -12,12 +11,28 @@
     "placeholder": "Ask about your tasks…",
     "send": "Send",
     "clear": "Clear chat",
-    "hide": "Hide the assistant"
+    "hide": "Hide the assistant",
+    "heading": "Your assistant",
+    "subtitle": "A little extra clarity",
+    "readOnly": "Read-only: it can't change your tasks"
   },
   "examples": {
-    "title": "Try asking:",
+    "title": "What shall we organize?",
     "overdue": "Do I have overdue tasks?",
     "first": "What should I do first?",
     "week": "What is due this week?"
+  },
+  "empty": {
+    "eyebrow": "One step at a time",
+    "title": "A lighter day starts here",
+    "openCount_one": "You have <strong>{{count}} open task</strong>. How about starting with a small step?",
+    "openCount_other": "You have <strong>{{count}} open tasks</strong>. How about starting with a small step?",
+    "noOpen": "You have no open tasks. Ask anything about your plans.",
+    "tip": "Start with what's within reach. Every finished task makes room for something new."
+  },
+  "nextStep": {
+    "label": "Your next step",
+    "priority": "{{priority}} priority",
+    "view": "View task"
   }
 }

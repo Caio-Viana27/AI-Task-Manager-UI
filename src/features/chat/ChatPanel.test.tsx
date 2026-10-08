@@ -17,9 +17,13 @@ const AUTH_RESPONSE = {
  * Stubs the session, the dashboard, `GET /tasks/t1`, sign-in, and `POST /ai/chat` with `chat`
  * (by default, a reply that echoes the message). Returns the chat requests seen.
  */
-function stubApi(chat: (request: ChatRequest) => Response | Promise<Response> = echo) {
+function stubApi(chat: (request: ChatRequest) => Response | Promise<Response> = echo, tasks: (query: string) => Response | undefined = () => undefined) {
   const chatRequests: ChatRequest[] = []
   stubFetch(({ method, path, body }) => {
+    const taskResponse = path.startsWith('/v1/tasks?') ? tasks(path.split('?')[1]) : undefined
+    if (taskResponse) {
+      return taskResponse
+    }
     if (method === 'POST' && path === '/v1/ai/chat') {
       chatRequests.push(body as ChatRequest)
       return chat(body as ChatRequest)
@@ -183,7 +187,7 @@ describe('ChatPanel', () => {
     await user.click(screen.getByRole('button', { name: 'Clear chat' }))
 
     expect(listedMessages()).toEqual([])
-    expect(screen.getByText('Try asking:')).toBeDefined()
+    expect(screen.getByText('What shall we organize?')).toBeDefined()
   })
 
   it('keeps the conversation when navigating between protected pages', async () => {
@@ -215,7 +219,51 @@ describe('ChatPanel', () => {
     await user.click(await screen.findByRole('button', { name: 'Open the assistant' }))
 
     expect(listedMessages()).toEqual([])
-    expect(screen.getByText('Try asking:')).toBeDefined()
+    expect(screen.getByText('What shall we organize?')).toBeDefined()
+  })
+
+  it('introduces the open tasks and the next one, which links to its page', async () => {
+    const next = taskDetail('n1', { title: 'Call the bank', priority: 'HIGH', dueDate: '2026-12-20' })
+    stubApi(echo, (query) => {
+      const params = new URLSearchParams(query)
+      if (params.get('size') !== '1' || params.getAll('status').join() !== 'TODO,IN_PROGRESS,OVERDUE') {
+        return undefined
+      }
+      return jsonResponse({ content: [next], page: 0, size: 1, totalElements: 5, totalPages: 5 })
+    })
+    const { router } = await openPanel()
+
+    const panel = within(screen.getByRole('region', { name: 'Assistant' }))
+    expect(await panel.findByText((_, element) => element?.textContent === 'You have 5 open tasks. How about starting with a small step?')).toBeDefined()
+    expect(panel.getByText('Your next step')).toBeDefined()
+    expect(panel.getByText('Call the bank')).toBeDefined()
+    expect(panel.getByText('high priority', { exact: false })).toBeDefined()
+
+    await userEvent.setup().click(panel.getByRole('link', { name: 'View task' }))
+    expect(router.state.location.pathname).toBe('/tasks/n1')
+  })
+
+  it('shows no next step when nothing is open', async () => {
+    stubApi()
+    await openPanel()
+
+    expect(await screen.findByText('You have no open tasks. Ask anything about your plans.')).toBeDefined()
+    expect(screen.queryByText('Your next step')).toBeNull()
+  })
+
+  it('hides with its close button and keeps the conversation for the next time', async () => {
+    stubApi()
+    const { user } = await openPanel()
+    await ask(user, 'Hello')
+    await waitFor(() => expect(listedMessages()).toHaveLength(2))
+
+    await user.click(screen.getByRole('button', { name: 'Hide the assistant' }))
+    expect(screen.queryByRole('region', { name: 'Assistant' })).toBeNull()
+    const toggle = screen.getByRole('button', { name: 'Open the assistant' })
+    expect(toggle.getAttribute('aria-expanded')).toBe('false')
+
+    await user.click(toggle)
+    expect(listedMessages()).toEqual(['You: Hello', 'Assistant: Reply to Hello'])
   })
 
   it('is not rendered on /login', async () => {
