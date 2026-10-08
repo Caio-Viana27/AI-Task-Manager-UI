@@ -22,7 +22,7 @@ export function TaskDetailPage() {
     // The API answers 404 whether the task doesn't exist or belongs to someone else (PLAN §2).
     return (
       <section className="card mx-auto flex max-w-xl flex-col items-center p-10 text-center">
-        <h1 className="text-2xl font-bold tracking-tight">{t('detail.notFound.title')}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-brand-950">{t('detail.notFound.title')}</h1>
         <p className="mt-2 text-stone-600">{t('detail.notFound.body')}</p>
         <Link to="/" className="btn btn-secondary mt-6">
           {t('detail.notFound.backHome')}

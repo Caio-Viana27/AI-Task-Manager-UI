@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { useCreateTask } from '../api/queries/tasks.ts'
+import { Accent } from '../components/Accent.tsx'
 import { TaskForm } from '../features/tasks/form/TaskForm.tsx'
 import { EMPTY_TASK_FORM_VALUES, toCreateRequest } from '../features/tasks/form/taskForm.ts'
 
@@ -11,26 +12,35 @@ export function NewTaskPage() {
   const createTask = useCreateTask()
 
   return (
-    <section className="card mx-auto flex max-w-3xl flex-col gap-6 p-6 sm:p-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900">{t('pages.newTask.title')}</h1>
-        <p className="mt-1 text-sm text-stone-500">{t('pages.newTask.subtitle')}</p>
-      </div>
-      <TaskForm
-        mode="create"
-        label={t('pages.newTask.title')}
-        initialValues={EMPTY_TASK_FORM_VALUES}
-        submitLabel={t('tasks:form.create')}
-        pendingLabel={t('tasks:form.creating')}
-        pending={createTask.isPending}
-        error={createTask.error}
-        onSubmit={(values) =>
-          createTask.mutate(toCreateRequest(values), {
-            onSuccess: (task) => void navigate(`/tasks/${encodeURIComponent(task.id)}`, { replace: true }),
-          })
-        }
-        onCancel={() => void navigate('/')}
-      />
-    </section>
+    <div className="mx-auto flex max-w-3xl flex-col gap-8">
+      <header>
+        <p className="eyebrow flex items-center gap-2">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-sage-500" />
+          {t('pages.newTask.eyebrow')}
+        </p>
+        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-brand-950 sm:text-4xl">
+          {t('pages.newTask.title')}
+          <Accent />
+        </h1>
+        <p className="mt-3 text-sm text-stone-500">{t('pages.newTask.subtitle')}</p>
+      </header>
+      <section className="card p-6 sm:p-8">
+        <TaskForm
+          mode="create"
+          label={t('pages.newTask.title')}
+          initialValues={EMPTY_TASK_FORM_VALUES}
+          submitLabel={t('tasks:form.create')}
+          pendingLabel={t('tasks:form.creating')}
+          pending={createTask.isPending}
+          error={createTask.error}
+          onSubmit={(values) =>
+            createTask.mutate(toCreateRequest(values), {
+              onSuccess: (task) => void navigate(`/tasks/${encodeURIComponent(task.id)}`, { replace: true }),
+            })
+          }
+          onCancel={() => void navigate('/')}
+        />
+      </section>
+    </div>
   )
 }

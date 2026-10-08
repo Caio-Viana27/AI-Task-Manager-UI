@@ -43,7 +43,8 @@
     },
     "newTask": {
       "title": "Nova tarefa",
-      "subtitle": "Descreva o que precisa ser feito. A IA pode completar os detalhes."
+      "subtitle": "Descreva o que precisa ser feito. A IA pode completar os detalhes.",
+      "eyebrow": "Planeje o próximo passo"
     },
     "taskDetail": {
       "title": "Tarefa {{id}}"

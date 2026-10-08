@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { useDeleteTask, usePatchTask } from '../../../api/queries/tasks.ts'
 import type { TaskDetail } from '../../../api/tasks.ts'
 import { ConfirmDialog } from '../../../components/ConfirmDialog.tsx'
+import { Accent } from '../../../components/Accent.tsx'
 import { ErrorMessage } from '../../../components/ErrorMessage.tsx'
 import { PencilIcon, TrashIcon } from '../../../components/icons.tsx'
 import { TaskForm } from '../form/TaskForm.tsx'
@@ -55,35 +56,43 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <section className="card flex flex-col gap-5 p-6 sm:p-8">
-        <Breadcrumb ancestors={task.ancestors} />
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <h1 className="min-w-0 text-2xl font-bold tracking-tight break-words text-stone-900 sm:text-3xl">{task.title}</h1>
-          {!editing && (
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={startEditing}
-                className="btn btn-secondary"
-              >
-                <PencilIcon />
-                {t('detail.edit')}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  deleteTask.reset()
-                  setConfirmingDelete(true)
-                }}
-                className="btn btn-danger-outline"
-              >
-                <TrashIcon />
-                {t('detail.delete')}
-              </button>
-            </div>
+    <div className="flex flex-col gap-8">
+      <header className="flex flex-wrap items-end justify-between gap-6">
+        <div className="min-w-0">
+          {task.ancestors.length > 0 ? (
+            <Breadcrumb ancestors={task.ancestors} />
+          ) : (
+            <p className="eyebrow flex items-center gap-2">
+              <span aria-hidden="true" className="size-1.5 rounded-full bg-sage-500" />
+              {t('detail.eyebrow')}
+            </p>
           )}
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight break-words text-brand-950 sm:text-4xl">
+            {task.title}
+            <Accent />
+          </h1>
         </div>
+        {!editing && (
+          <div className="flex gap-2">
+            <button type="button" onClick={startEditing} className="btn btn-secondary">
+              <PencilIcon />
+              {t('detail.edit')}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                deleteTask.reset()
+                setConfirmingDelete(true)
+              }}
+              className="btn btn-danger-outline"
+            >
+              <TrashIcon />
+              {t('detail.delete')}
+            </button>
+          </div>
+        )}
+      </header>
+      <section className="card p-6 sm:p-8">
         {editing ? (
           <TaskForm
             mode="edit"

@@ -43,7 +43,8 @@
     },
     "newTask": {
       "title": "New task",
-      "subtitle": "Describe what needs doing. AI can fill in the details."
+      "subtitle": "Describe what needs doing. AI can fill in the details.",
+      "eyebrow": "Plan the next step"
     },
     "taskDetail": {
       "title": "Task {{id}}"

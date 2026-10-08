@@ -38,7 +38,7 @@ export function TaskFields({ task }: TaskFieldsProps) {
       <Field label={t('fields.description')}>
         <p className="leading-relaxed whitespace-pre-wrap text-stone-700">{task.description}</p>
       </Field>
-      <div className="grid gap-4 rounded-xl bg-stone-50 p-4 ring-1 ring-stone-100 sm:grid-cols-4">
+      <div className="grid gap-4 rounded-lg bg-sage-50 p-4 ring-1 ring-sage-100 sm:grid-cols-4">
         <Field label={t('fields.status')}>
           <StatusBadge status={task.status} />
         </Field>

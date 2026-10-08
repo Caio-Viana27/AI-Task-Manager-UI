@@ -130,7 +130,8 @@
       "message": "“{{title}}” e todas as suas subtarefas, em todos os níveis, serão excluídas. Isso não pode ser desfeito.",
       "confirm": "Excluir",
       "deleting": "Excluindo…"
-    }
+    },
+    "eyebrow": "Detalhes da tarefa"
   },
   "subtasks": {
     "title": "Subtarefas",

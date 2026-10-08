@@ -16,10 +16,10 @@ export function Breadcrumb({ ancestors }: BreadcrumbProps) {
   }
   return (
     <nav aria-label={t('detail.breadcrumb')}>
-      <ol className="flex flex-wrap items-center gap-1 text-sm text-stone-500">
+      <ol className="flex flex-wrap items-center gap-1 text-xs text-stone-500">
         {ancestors.map((ancestor) => (
           <li key={ancestor.id} className="flex items-center gap-1">
-            <Link to={`/tasks/${encodeURIComponent(ancestor.id)}`} className="max-w-56 truncate rounded px-1 font-medium hover:bg-stone-100 hover:text-brand-700">
+            <Link to={`/tasks/${encodeURIComponent(ancestor.id)}`} className="max-w-56 truncate rounded px-1 font-medium hover:bg-sage-100 hover:text-brand-800">
               {ancestor.title}
             </Link>
             <ChevronRightIcon className="size-3.5 text-stone-400" />

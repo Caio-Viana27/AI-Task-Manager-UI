@@ -130,7 +130,8 @@
       "message": "“{{title}}” and all of its subtasks, at every level, will be deleted. This can't be undone.",
       "confirm": "Delete",
       "deleting": "Deleting…"
-    }
+    },
+    "eyebrow": "Task details"
   },
   "subtasks": {
     "title": "Subtasks",
