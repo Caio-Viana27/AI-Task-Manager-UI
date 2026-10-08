@@ -28,7 +28,7 @@ export function FormField({ label, error, hint, className, ...inputProps }: Form
         {...inputProps}
       />
       {hint && !error && (
-        <p id={hintId} className="text-xs text-slate-500">
+        <p id={hintId} className="text-xs text-stone-500">
           {hint}
         </p>
       )}

@@ -38,7 +38,7 @@ export function AddSubtaskForm({ parentId }: AddSubtaskFormProps) {
     )
   }
   return (
-    <div className="animate-fade-in rounded-xl border border-slate-200 bg-slate-50/60 p-5">
+    <div className="animate-fade-in rounded-xl border border-line bg-stone-50/60 p-5">
       <TaskForm
         key={formKey}
         mode="create"

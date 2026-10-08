@@ -24,7 +24,7 @@ export function SubtaskSection({ task }: SubtaskSectionProps) {
       className="card flex flex-col gap-4 p-6 sm:p-8"
     >
       <h2 id={headingId} className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-        <ListTreeIcon className="size-5 text-slate-400" />
+        <ListTreeIcon className="size-5 text-stone-400" />
         {t('subtasks.title')}
       </h2>
       <AiBreakdownSlot task={task} canAddSubtasks={task.canAddSubtasks} />

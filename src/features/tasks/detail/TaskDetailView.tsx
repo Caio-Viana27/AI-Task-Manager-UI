@@ -59,7 +59,7 @@ export function TaskDetailView({ task }: TaskDetailViewProps) {
       <section className="card flex flex-col gap-5 p-6 sm:p-8">
         <Breadcrumb ancestors={task.ancestors} />
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <h1 className="min-w-0 text-2xl font-bold tracking-tight break-words text-slate-900 sm:text-3xl">{task.title}</h1>
+          <h1 className="min-w-0 text-2xl font-bold tracking-tight break-words text-stone-900 sm:text-3xl">{task.title}</h1>
           {!editing && (
             <div className="flex gap-2">
               <button

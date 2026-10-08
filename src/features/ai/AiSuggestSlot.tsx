@@ -38,7 +38,7 @@ export function AiSuggestSlot({ values, onApply, disabled }: AiSuggestSlotProps)
   return (
     <section
       aria-label={t('suggest.label')}
-      className="flex flex-col gap-3 rounded-xl border border-violet-100 bg-linear-to-r from-violet-50/80 to-brand-50/60 p-3"
+      className="flex flex-col gap-3 rounded-xl border border-sage-100 bg-sage-50 p-3"
     >
       <div className="flex flex-wrap items-center gap-3">
         <button
@@ -50,7 +50,7 @@ export function AiSuggestSlot({ values, onApply, disabled }: AiSuggestSlotProps)
           <SparklesIcon className={`size-4 ${suggest.isPending ? 'animate-pulse' : ''}`} />
           {suggest.isPending ? t('suggest.loading') : t('suggest.button')}
         </button>
-        {!inputValid && <span className="text-xs text-violet-700/70">{t('suggest.hint')}</span>}
+        {!inputValid && <span className="text-xs text-brand-700/70">{t('suggest.hint')}</span>}
       </div>
       {suggest.isError && <ErrorMessage error={suggest.error} />}
       {suggest.isSuccess && (

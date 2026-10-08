@@ -23,7 +23,7 @@ export function TaskDetailPage() {
     return (
       <section className="card mx-auto flex max-w-xl flex-col items-center p-10 text-center">
         <h1 className="text-2xl font-bold tracking-tight">{t('detail.notFound.title')}</h1>
-        <p className="mt-2 text-slate-600">{t('detail.notFound.body')}</p>
+        <p className="mt-2 text-stone-600">{t('detail.notFound.body')}</p>
         <Link to="/" className="btn btn-secondary mt-6">
           {t('detail.notFound.backHome')}
         </Link>
@@ -47,9 +47,9 @@ export function TaskDetailPage() {
   return (
     <div role="status" className="card flex flex-col gap-4 p-6">
       <span className="sr-only">{t('detail.loading')}</span>
-      <div aria-hidden="true" className="h-4 w-1/4 animate-pulse rounded bg-slate-200" />
-      <div aria-hidden="true" className="h-7 w-2/3 animate-pulse rounded bg-slate-200" />
-      <div aria-hidden="true" className="h-16 w-full animate-pulse rounded bg-slate-100" />
+      <div aria-hidden="true" className="h-4 w-1/4 animate-pulse rounded bg-stone-200" />
+      <div aria-hidden="true" className="h-7 w-2/3 animate-pulse rounded bg-stone-200" />
+      <div aria-hidden="true" className="h-16 w-full animate-pulse rounded bg-stone-100" />
     </div>
   )
 }

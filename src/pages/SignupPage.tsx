@@ -127,7 +127,7 @@ export function SignupPage() {
           {mutation.isPending ? t('signup.submitting') : t('signup.submit')}
         </button>
       </form>
-      <p className="mt-6 border-t border-slate-100 pt-6 text-center text-sm text-slate-600">
+      <p className="mt-6 border-t border-stone-100 pt-6 text-center text-sm text-stone-600">
         {t('signup.haveAccount')}{' '}
         <Link to="/login" className="link">
           {t('signup.loginLink')}

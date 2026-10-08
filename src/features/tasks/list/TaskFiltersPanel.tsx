@@ -29,12 +29,12 @@ function CheckboxGroup<T extends string>({ legend, options, selected, label, onC
 
   return (
     <fieldset>
-      <legend className="mb-2 text-xs font-semibold tracking-wide text-slate-500 uppercase">{legend}</legend>
+      <legend className="mb-2 text-xs font-semibold tracking-wide text-stone-500 uppercase">{legend}</legend>
       <div className="flex flex-wrap gap-2">
         {options.map((option) => (
           <label
             key={option}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-sm text-slate-600 transition-colors select-none hover:border-slate-300 hover:bg-slate-50 has-checked:border-brand-300 has-checked:bg-brand-50 has-checked:text-brand-800 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-brand-500"
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line bg-white px-3 py-1 text-sm text-stone-600 transition-colors select-none hover:border-stone-300 hover:bg-stone-50 has-checked:border-brand-300 has-checked:bg-brand-50 has-checked:text-brand-800 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-brand-500"
           >
             <input
               type="checkbox"
@@ -96,7 +96,7 @@ export function TaskFiltersPanel({ state, onChange, onClear }: TaskFiltersPanelP
 
       <ErrorMessage error={lookups.error} className="mt-4" />
       {lookups.data && (
-        <div className="mt-5 grid gap-5 border-t border-slate-100 pt-5 sm:grid-cols-3">
+        <div className="mt-5 grid gap-5 border-t border-stone-100 pt-5 sm:grid-cols-3">
           <CheckboxGroup
             legend={t('fields.status')}
             options={lookups.data.statuses}
@@ -121,8 +121,8 @@ export function TaskFiltersPanel({ state, onChange, onClear }: TaskFiltersPanelP
         </div>
       )}
 
-      <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-4">
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-700">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-stone-100 pt-4">
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-stone-700">
           <input
             type="checkbox"
             checked={state.includeSubtasks}

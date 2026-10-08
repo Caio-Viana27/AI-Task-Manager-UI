@@ -21,7 +21,7 @@ export function SortSelect({ value, onChange }: SortSelectProps) {
 
   return (
     <div className="flex items-center gap-2">
-      <label htmlFor={id} className="text-sm font-medium text-slate-500">
+      <label htmlFor={id} className="text-sm font-medium text-stone-500">
         {t('list.sort.label')}
       </label>
       <select

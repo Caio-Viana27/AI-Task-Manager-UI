@@ -13,7 +13,7 @@ export function PagePlaceholder({ title, children }: PagePlaceholderProps) {
   return (
     <section className="card mx-auto max-w-2xl p-8">
       <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-      <p className="mt-2 text-slate-600">{t('placeholder')}</p>
+      <p className="mt-2 text-stone-600">{t('placeholder')}</p>
       {children}
     </section>
   )

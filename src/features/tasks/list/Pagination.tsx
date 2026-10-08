@@ -19,7 +19,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
         <ChevronLeftIcon />
         {t('list.pagination.previous')}
       </button>
-      <span className="text-sm font-medium text-slate-600">{t('list.pagination.page', { page, totalPages })}</span>
+      <span className="text-sm font-medium text-stone-600">{t('list.pagination.page', { page, totalPages })}</span>
       <button
         type="button"
         className={BUTTON_CLASS}

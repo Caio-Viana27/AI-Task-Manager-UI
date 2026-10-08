@@ -10,7 +10,7 @@ export function LanguageSwitcher() {
   const { t, i18n } = useTranslation()
 
   return (
-    <div role="group" aria-label={t('language.label')} className="flex rounded-lg bg-slate-100 p-0.5">
+    <div role="group" aria-label={t('language.label')} className="flex rounded-lg bg-stone-100 p-0.5">
       {LANGUAGES.map(({ code, labelKey }) => {
         const active = i18n.resolvedLanguage === code
         return (
@@ -20,7 +20,7 @@ export function LanguageSwitcher() {
             aria-pressed={active}
             onClick={() => void i18n.changeLanguage(code)}
             className={`cursor-pointer rounded-md px-2 py-1 text-xs font-semibold transition-colors ${
-              active ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              active ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-900'
             }`}
           >
             {t(labelKey)}

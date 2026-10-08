@@ -16,8 +16,8 @@ export function AuthCard({ title, children }: AuthCardProps) {
       <section className="card w-full max-w-md animate-pop-in p-8 shadow-lift">
         <div className="flex flex-col items-center text-center">
           <LogoMark className="size-12" />
-          <h1 className="mt-4 text-2xl font-bold tracking-tight text-slate-900">{title}</h1>
-          <p className="mt-1 text-sm text-slate-500">{t('app.tagline')}</p>
+          <h1 className="mt-4 text-2xl font-bold tracking-tight text-stone-900">{title}</h1>
+          <p className="mt-1 text-sm text-stone-500">{t('app.tagline')}</p>
         </div>
         {children}
       </section>

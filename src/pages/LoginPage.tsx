@@ -82,11 +82,11 @@ export function LoginPage() {
           {mutation.isPending ? t('login.submitting') : t('login.submit')}
         </button>
       </form>
-      <div className="mt-6 flex flex-col items-center gap-3 border-t border-slate-100 pt-6 text-sm">
+      <div className="mt-6 flex flex-col items-center gap-3 border-t border-stone-100 pt-6 text-sm">
         <Link to="/forgot-password" className="link">
           {t('login.forgotPassword')}
         </Link>
-        <p className="text-slate-600">
+        <p className="text-stone-600">
           {t('login.noAccount')}{' '}
           <Link to="/signup" className="link">
             {t('login.signupLink')}

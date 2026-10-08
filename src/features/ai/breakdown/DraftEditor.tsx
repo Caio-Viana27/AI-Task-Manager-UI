@@ -73,23 +73,23 @@ export function DraftEditor({ parentId, initialDrafts, onClose }: DraftEditorPro
   const pending = createSubtasks.isPending
 
   return (
-    <div role="group" aria-label={t('reviewTitle')} className="flex animate-fade-in flex-col gap-4 rounded-xl border border-violet-200 bg-linear-to-b from-violet-50 to-brand-50/40 p-4">
-      <h3 className="flex items-center gap-2 text-sm font-semibold text-violet-900">
-        <SparklesIcon className="size-4 text-violet-600" />
+    <div role="group" aria-label={t('reviewTitle')} className="flex animate-fade-in flex-col gap-4 rounded-xl border border-sage-200 bg-sage-50 p-4">
+      <h3 className="flex items-center gap-2 text-sm font-semibold text-brand-900">
+        <SparklesIcon className="size-4 text-brand-600" />
         {t('reviewTitle')}
       </h3>
       {drafts.length === 0 ? (
-        <p className="text-sm text-slate-600">{t('noDrafts')}</p>
+        <p className="text-sm text-stone-600">{t('noDrafts')}</p>
       ) : (
         <ol className="flex flex-col gap-3">
           {drafts.map((draft, index) => {
             const number = index + 1
             return (
               // Drafts have no id; the index is their identity, and every field is controlled.
-              <li key={index} aria-label={t('draftLabel', { number })} className="relative flex flex-col gap-3 rounded-xl bg-white p-4 pl-12 shadow-card ring-1 ring-violet-100">
+              <li key={index} aria-label={t('draftLabel', { number })} className="relative flex flex-col gap-3 rounded-xl bg-white p-4 pl-12 shadow-card ring-1 ring-sage-100">
                 <span
                   aria-hidden="true"
-                  className="absolute top-4 left-4 flex size-6 items-center justify-center rounded-full bg-violet-100 text-xs font-semibold text-violet-700"
+                  className="absolute top-4 left-4 flex size-6 items-center justify-center rounded-full bg-sage-100 text-xs font-semibold text-brand-700"
                 >
                   {number}
                 </span>

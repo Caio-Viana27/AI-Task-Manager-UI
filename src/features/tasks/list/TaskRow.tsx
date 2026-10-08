@@ -24,7 +24,7 @@ export function TaskRow({ task }: TaskRowProps) {
   return (
     <li
       data-testid={`task-row-${task.id}`}
-      className={`group relative flex flex-col gap-2 px-4 py-3.5 transition-colors hover:bg-slate-50/80 sm:px-5 ${
+      className={`group relative flex flex-col gap-2 px-4 py-3.5 transition-colors hover:bg-stone-50/80 sm:px-5 ${
         overdue ? 'bg-red-50/40 shadow-[inset_3px_0_0_var(--color-red-500)]' : ''
       }`}
     >
@@ -39,7 +39,7 @@ export function TaskRow({ task }: TaskRowProps) {
         />
         <Link
           to={`/tasks/${encodeURIComponent(task.id)}`}
-          className={`min-w-0 flex-1 truncate font-medium transition-colors hover:text-brand-700 ${done ? 'text-slate-400 line-through' : 'text-slate-900'}`}
+          className={`min-w-0 flex-1 truncate font-medium transition-colors hover:text-brand-700 ${done ? 'text-stone-400 line-through' : 'text-stone-900'}`}
         >
           {task.title}
         </Link>
@@ -54,13 +54,13 @@ export function TaskRow({ task }: TaskRowProps) {
           <PriorityBadge priority={task.priority} />
           <ComplexityBadge complexity={task.complexity} />
           <span
-            className={`inline-flex min-w-28 items-center gap-1.5 text-xs ${overdue ? 'font-semibold text-red-700' : 'text-slate-500'}`}
+            className={`inline-flex min-w-28 items-center gap-1.5 text-xs ${overdue ? 'font-semibold text-red-700' : 'text-stone-500'}`}
           >
             <CalendarIcon className="size-3.5" />
             <span className="sr-only">{t('fields.dueDate')}: </span>
             {task.dueDate ? formatDueDate(task.dueDate, i18n.language) : t('list.noDueDate')}
           </span>
-          <ChevronRightIcon className="hidden size-4 text-slate-300 transition-transform group-hover:translate-x-0.5 group-hover:text-slate-400 sm:block" />
+          <ChevronRightIcon className="hidden size-4 text-stone-300 transition-transform group-hover:transtone-x-0.5 group-hover:text-stone-400 sm:block" />
         </div>
       </div>
       <ErrorMessage error={toggle.error} />

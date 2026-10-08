@@ -169,7 +169,7 @@ export function TaskForm({
         )}
       </div>
       <ErrorMessage error={formError} />
-      <div className="flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
+      <div className="flex flex-wrap justify-end gap-2 border-t border-stone-100 pt-4">
         {onCancel && (
           <button
             type="button"

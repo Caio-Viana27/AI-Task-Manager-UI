@@ -17,21 +17,21 @@ export function SubtaskList({ subtasks }: SubtaskListProps) {
 
   if (subtasks.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed border-slate-200 px-4 py-6 text-center text-sm text-slate-500">
+      <p className="rounded-xl border border-dashed border-line px-4 py-6 text-center text-sm text-stone-500">
         {t('subtasks.empty')}
       </p>
     )
   }
   return (
-    <ul className="divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200">
+    <ul className="divide-y divide-stone-100 overflow-hidden rounded-xl border border-line">
       {subtasks.map((subtask) => (
         <li
           key={subtask.id}
-          className={`flex flex-wrap items-center gap-3 px-4 py-3 transition-colors hover:bg-slate-50/80 ${subtask.status === 'OVERDUE' ? 'bg-red-50/40 shadow-[inset_3px_0_0_var(--color-red-500)]' : ''}`}
+          className={`flex flex-wrap items-center gap-3 px-4 py-3 transition-colors hover:bg-stone-50/80 ${subtask.status === 'OVERDUE' ? 'bg-red-50/40 shadow-[inset_3px_0_0_var(--color-red-500)]' : ''}`}
         >
           <Link
             to={`/tasks/${encodeURIComponent(subtask.id)}`}
-            className={`min-w-0 flex-1 truncate font-medium transition-colors hover:text-brand-700 ${subtask.status === 'DONE' ? 'text-slate-400 line-through' : 'text-slate-900'}`}
+            className={`min-w-0 flex-1 truncate font-medium transition-colors hover:text-brand-700 ${subtask.status === 'DONE' ? 'text-stone-400 line-through' : 'text-stone-900'}`}
           >
             {subtask.title}
           </Link>
@@ -42,7 +42,7 @@ export function SubtaskList({ subtasks }: SubtaskListProps) {
           )}
           <StatusBadge status={subtask.status} />
           <PriorityBadge priority={subtask.priority} />
-          <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-1.5 text-xs text-stone-500">
             <CalendarIcon className="size-3.5" />
             <span className="sr-only">{t('fields.dueDate')}: </span>
             {subtask.dueDate ? formatDueDate(subtask.dueDate, i18n.language) : t('detail.noDueDate')}

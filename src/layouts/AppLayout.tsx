@@ -34,10 +34,10 @@ export function AppLayout({ chatPanel }: AppLayoutProps) {
   const links = status === 'authenticated' ? USER_LINKS : status === 'anonymous' ? GUEST_LINKS : []
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,var(--color-brand-100),transparent)] text-slate-900">
-      <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-white/75 backdrop-blur-md">
+    <div className="flex min-h-screen flex-col bg-stone-50 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,var(--color-brand-100),transparent)] text-stone-900">
+      <header className="sticky top-0 z-40 border-b border-line bg-white/75 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
-          <Link to="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-slate-900">
+          <Link to="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight text-stone-900">
             <LogoMark />
             {t('app.name')}
           </Link>
@@ -49,7 +49,7 @@ export function AppLayout({ chatPanel }: AppLayoutProps) {
                 end={end}
                 className={({ isActive }) =>
                   `rounded-lg px-3 py-1.5 font-medium transition-colors ${
-                    isActive ? 'bg-brand-50 text-brand-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                    isActive ? 'bg-brand-50 text-brand-700' : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                   }`
                 }
               >
@@ -61,10 +61,10 @@ export function AppLayout({ chatPanel }: AppLayoutProps) {
             <LanguageSwitcher />
             {user && (
               <>
-                <span className="flex items-center gap-2 font-medium text-slate-700">
+                <span className="flex items-center gap-2 font-medium text-stone-700">
                   <span
                     aria-hidden="true"
-                    className="inline-flex size-8 items-center justify-center rounded-full bg-linear-to-br from-brand-100 to-violet-100 text-xs font-semibold text-brand-700 ring-1 ring-brand-200"
+                    className="inline-flex size-8 items-center justify-center rounded-full bg-sage-100 text-xs font-semibold text-brand-800 ring-1 ring-sage-200"
                   >
                     {initials(user.name)}
                   </span>

@@ -89,32 +89,32 @@ export function ChatPanel() {
         aria-controls={bodyId}
         aria-label={open ? t('panel.close') : t('panel.open')}
         onClick={() => setOpen((current) => !current)}
-        className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50"
+        className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold text-stone-800 transition-colors hover:bg-stone-50"
       >
         <span className="flex items-center gap-3">
           <span
             aria-hidden="true"
-            className="flex size-8 items-center justify-center rounded-lg bg-linear-to-br from-violet-600 to-brand-600 text-white shadow-sm"
+            className="flex size-8 items-center justify-center rounded-lg bg-sage-400 text-brand-900 shadow-sm"
           >
             <SparklesIcon className="size-4" />
           </span>
           {t('panel.title')}
         </span>
-        <ChevronDownIcon className={`size-4 text-slate-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <ChevronDownIcon className={`size-4 text-stone-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div id={bodyId} className="flex animate-fade-in flex-col gap-3 border-t border-slate-100 p-4">
+        <div id={bodyId} className="flex animate-fade-in flex-col gap-3 border-t border-stone-100 p-4">
           {messages.length === 0 ? (
-            <div className="text-sm text-slate-600">
+            <div className="text-sm text-stone-600">
               <p className="leading-relaxed">{t('panel.intro')}</p>
-              <p className="mt-4 text-xs font-semibold tracking-wide text-slate-500 uppercase">{t('examples.title')}</p>
+              <p className="mt-4 text-xs font-semibold tracking-wide text-stone-500 uppercase">{t('examples.title')}</p>
               <ul className="mt-2 flex flex-col gap-1.5">
                 {EXAMPLE_KEYS.map((key) => (
                   <li key={key}>
                     <button
                       type="button"
                       onClick={() => setInput(t(key))}
-                      className="w-full cursor-pointer rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-left text-slate-700 transition-colors hover:border-brand-200 hover:bg-brand-50 hover:text-brand-800"
+                      className="w-full cursor-pointer rounded-lg border border-line bg-stone-50 px-3 py-2 text-left text-stone-700 transition-colors hover:border-brand-200 hover:bg-brand-50 hover:text-brand-800"
                     >
                       {t(key)}
                     </button>
@@ -135,7 +135,7 @@ export function ChatPanel() {
                   className={
                     role === 'user'
                       ? 'ml-8 animate-fade-in self-end rounded-2xl rounded-br-md bg-brand-600 px-3.5 py-2 text-sm text-white shadow-sm'
-                      : 'mr-8 animate-fade-in self-start rounded-2xl rounded-bl-md bg-slate-100 px-3.5 py-2 text-sm text-slate-800'
+                      : 'mr-8 animate-fade-in self-start rounded-2xl rounded-bl-md bg-stone-100 px-3.5 py-2 text-sm text-stone-800'
                   }
                 >
                   <span className="sr-only">{role === 'user' ? t('panel.you') : t('panel.assistant')}: </span>
@@ -145,11 +145,11 @@ export function ChatPanel() {
             </ol>
           )}
           {pending && (
-            <p role="status" className="flex items-center gap-2 text-sm text-slate-500">
+            <p role="status" className="flex items-center gap-2 text-sm text-stone-500">
               <span aria-hidden="true" className="flex gap-1">
-                <span className="size-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.3s]" />
-                <span className="size-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.15s]" />
-                <span className="size-1.5 animate-bounce rounded-full bg-slate-400" />
+                <span className="size-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:-0.3s]" />
+                <span className="size-1.5 animate-bounce rounded-full bg-stone-400 [animation-delay:-0.15s]" />
+                <span className="size-1.5 animate-bounce rounded-full bg-stone-400" />
               </span>
               {t('panel.typing')}
             </p>

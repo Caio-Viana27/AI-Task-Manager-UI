@@ -63,7 +63,7 @@ export function ConfirmDialog({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-slate-900/40 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex animate-fade-in items-center justify-center bg-stone-900/40 p-4 backdrop-blur-sm"
       onClick={(event) => {
         if (event.target === event.currentTarget && !pending) {
           onCancel()
@@ -75,7 +75,7 @@ export function ConfirmDialog({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={messageId}
-        className="w-full max-w-md animate-pop-in rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-slate-900/5"
+        className="w-full max-w-md animate-pop-in rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-stone-900/5"
         onKeyDown={(event) => {
           if (event.key === 'Escape' && !pending) {
             event.stopPropagation()
@@ -83,10 +83,10 @@ export function ConfirmDialog({
           }
         }}
       >
-        <h2 id={titleId} className="text-lg font-semibold text-slate-900">
+        <h2 id={titleId} className="text-lg font-semibold text-stone-900">
           {title}
         </h2>
-        <p id={messageId} className="mt-2 text-sm text-slate-600">
+        <p id={messageId} className="mt-2 text-sm text-stone-600">
           {message}
         </p>
         {children && <div className="mt-4">{children}</div>}

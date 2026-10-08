@@ -13,8 +13,8 @@ export function NewTaskPage() {
   return (
     <section className="card mx-auto flex max-w-3xl flex-col gap-6 p-6 sm:p-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-slate-900">{t('pages.newTask.title')}</h1>
-        <p className="mt-1 text-sm text-slate-500">{t('pages.newTask.subtitle')}</p>
+        <h1 className="text-2xl font-bold tracking-tight text-stone-900">{t('pages.newTask.title')}</h1>
+        <p className="mt-1 text-sm text-stone-500">{t('pages.newTask.subtitle')}</p>
       </div>
       <TaskForm
         mode="create"

@@ -15,8 +15,8 @@ export function DashboardPage() {
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">{t('pages.dashboard.title')}</h1>
-          <p className="mt-1 text-sm text-slate-500">{t('pages.dashboard.subtitle')}</p>
+          <h1 className="text-3xl font-bold tracking-tight text-stone-900">{t('pages.dashboard.title')}</h1>
+          <p className="mt-1 text-sm text-stone-500">{t('pages.dashboard.subtitle')}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <SortSelect value={state.sort} onChange={(sort) => update({ sort })} />
